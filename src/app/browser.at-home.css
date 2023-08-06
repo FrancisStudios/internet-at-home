@@ -7,9 +7,9 @@
         font-family: sans-serif;
         line-height: 0px;
         position: absolute;
-        top: 30%;
+        top: 25%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, 0%);
         user-select: none;
     }
     
@@ -76,6 +76,32 @@
 
     .search{
         margin-right: 10px;
+    }
+
+    .more-items{
+        width: 60px;
+        filter: invert();
+    }
+
+    .more-items:hover{
+        animation: appsmenuFlash 1s forwards;
+        border-radius: 30px;
+    }
+
+    @keyframes appsmenuFlash {
+        from{
+
+        }
+
+        to{
+            background-color: #9e9e9e;
+        }
+    }
+
+    .more-apps{
+        position: absolute;
+        top: 20px;
+        right: 20px;
     }
 }
 
@@ -156,5 +182,31 @@
 
     .search{
         margin-right: 10px;
+    }
+
+    .more-items{
+        width: 30px;
+        filter: invert();
+    }
+
+    .more-items:hover{
+        animation: appsmenuFlash 1s forwards;
+        border-radius: 30px;
+    }
+
+    @keyframes appsmenuFlash {
+        from{
+
+        }
+
+        to{
+            background-color: #9e9e9e;
+        }
+    }
+
+    .more-apps{
+        position: absolute;
+        top: 20px;
+        right: 20px;
     }
 }
