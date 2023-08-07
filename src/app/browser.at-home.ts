@@ -3,11 +3,11 @@ import { Component, HostListener } from '@angular/core';
 const __componentPrefix = './browser.at-home';
 
 @Component({
-  selector: 'app-root',
+  selector: 'browser-at-home',
   templateUrl: `${__componentPrefix}.html`,
   styleUrls: [`${__componentPrefix}.css`]
 })
-export class AppComponent {
+export class BrowserAtHomeComponent {
   title = 'internet-at-home';
   isAppsMenuEnabled: boolean = false;
 

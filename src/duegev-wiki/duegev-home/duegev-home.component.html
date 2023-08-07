@@ -1,0 +1,23 @@
+<nav class="navbar">
+    <div class="signature">
+        <img src="../../assets/icones/book.png" class="wikicon">
+        <span class="name">DÛGEV WIKI</span>
+    </div>
+
+    <div class="date-display">
+        <span class="date">
+            K.i. 2441 | Cl.u. 399 | Ersi idő 531 | Nordi idő 550 | Sz.I 938
+        </span>
+    </div>
+
+    <div class="menu-items">
+        <a class="menu-item">Home ▷</a>
+        <a class="menu-item">Browse ▷</a>
+        <a class="menu-item">Login ▷</a>
+    </div>
+</nav>
+
+<div class="md">
+    <span id="mdviewer" [innerHTML]="testhtml"></span>
+    <textarea id="mdeditor" cols="30" rows="10" (input)="onMDInput($event)"></textarea>
+</div>
