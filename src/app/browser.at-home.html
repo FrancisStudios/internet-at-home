@@ -1,5 +1,14 @@
 <div class="more-apps">
-    <img src="../assets/icones/more.png" class="more-items">
+    <img src="../assets/icones/more.png" class="more-items" (click)="toggleAppsMenu()" id="appsMenuToggler">
+</div>
+
+<div *ngIf="isAppsMenuEnabled">
+    <div class="apps-menu">
+        <div class="app-pod">
+            <img src="../assets/icones/book.png" class="app-pod-icon">
+            <span class="app-pod-description">Duegev</span>
+        </div>
+    </div>
 </div>
 
 <div class="searcharea">
