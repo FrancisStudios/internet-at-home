@@ -1,0 +1,69 @@
+.md {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-family: sans-serif;
+}
+
+.side-by-side{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header{
+    background-color: black;
+    color: white;
+    font-family: sans-serif;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.title{
+    font-weight: bolder;
+}
+
+.save{
+    margin-left: auto;
+    justify-self: flex-end;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: gray;
+}
+
+#mdviewer {
+    background-color: lightgray;
+    width: 50%;
+    padding: 5px;
+    overflow: scroll;
+}
+
+#mdeditor {
+    width: 50%;
+    resize: none;
+}
+
+
+/* SCROLLBAR DEFINITIONS */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

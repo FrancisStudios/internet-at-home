@@ -1,0 +1,10 @@
+<div class="md">
+    <div class="header">
+        <span class="title">DÛGEV.MD</span>
+        <button class="save">SAVE</button>
+    </div>
+    <div class="side-by-side">
+        <textarea id="mdeditor" cols="30" rows="10" (input)="onMDInput($event)"></textarea>
+        <span id="mdviewer" [innerHTML]="testhtml"></span>
+    </div>
+</div>
