@@ -79,16 +79,10 @@ nav {
     }
 }
 
-.md{
+.testcontainer{
     position: absolute;
-    top: 100px;
-    left: 100px;
-    display: flex;
-}
-
-#mdviewer{
-    background-color: white;
-    padding: 10px;
-    font-family: sans-serif;
-    width: 300px;
+    left: 500px;
+    top: 200px;
+    width: 700px;
+    height: 400px;
 }
