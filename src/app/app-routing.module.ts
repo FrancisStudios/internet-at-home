@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BrowserAtHomeComponent } from './browser.at-home';
+import { BrowserAtHomeComponent } from './browser/browser.at-home';
 import { DuegevHomeComponent } from 'src/duegev-wiki/duegev-home/duegev-home.component';
+import { IdentityProviderComponent } from 'src/ultils/identity-provider/identity-provider.component';
 
 const routes: Routes = [
   {path: '', component: BrowserAtHomeComponent},
-  {path: 'duegev-wiki', component: DuegevHomeComponent}
+  {path: 'duegev-wiki', component: DuegevHomeComponent},
+  {path: 'utils/identity-provider', component: IdentityProviderComponent},
+  {path: 'utils/identity-provider/:from', component: IdentityProviderComponent}
 ]
 
 @NgModule({

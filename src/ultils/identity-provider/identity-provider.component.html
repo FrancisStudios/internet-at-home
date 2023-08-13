@@ -1,0 +1,47 @@
+<div class="identity-provider-bg">
+    <div class="login-box">
+        <img src="../../assets/icon_COU.png" class="icon">
+        <span class="header">UNICUM</span>
+        <span class="lower-header">Identity Provider</span>
+
+        <div class="identity-provider-fields" *ngIf="isLogin">
+            <input type="text" id="identity-provider-username" placeholder="username">
+            <input type="password" id="identity-provider-password" placeholder="password">
+            <button class="idp-login-btn" role="button">LOGIN</button>
+        </div>
+
+        <div class="identity-provider-checker" *ngIf="!isLogin">
+
+            <div class="spinner-holder" *ngIf="isVerfiying">
+                <div class="lds-dual-ring"></div>
+                <span class="idp-status">Verifying your identity provider...</span>
+            </div>
+
+            <div class="spinner-holder" *ngIf="isVerified">
+                <div class="lds-circle">
+                    <div></div>
+                </div>
+                <span class="idp-status" style="color: #03dcac;">Login Successful!</span>
+            </div>
+
+            <div class="spinner-holder" *ngIf="isFailed">
+                <div class="lds-grid">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <span class="idp-status" style="color: #b00002;">Login failed!</span>
+            </div>
+
+        </div>
+
+        <span class="credits">by Francis Studios ©2023</span>
+
+    </div>
+</div>
