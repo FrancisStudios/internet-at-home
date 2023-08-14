@@ -9,6 +9,13 @@ import { DuegevAccountComponent } from 'src/duegev-wiki/duegev-account/duegev-ac
 import { MdTextEditorComponent } from '../duegev-wiki/_utils/md-text-editor/md-text-editor.component';
 import { MdArticleViewerComponent } from '../duegev-wiki/_utils/md-article-viewer/md-article-viewer.component';
 import { IdentityProviderComponent } from '../ultils/identity-provider/identity-provider.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { ArticleListViewerComponent } from '../duegev-wiki/owners-menu-options/article-list-viewer/article-list-viewer.component';
+import { AccountSettingsViewerComponent } from 'src/duegev-wiki/owners-menu-options/account-settings-viewer/account-settings-viewer.component';
 
 @NgModule({
   declarations: [
@@ -18,13 +25,21 @@ import { IdentityProviderComponent } from '../ultils/identity-provider/identity-
     DuegevAccountComponent,
     MdTextEditorComponent,
     MdArticleViewerComponent,
-    IdentityProviderComponent
+    IdentityProviderComponent,
+    ArticleListViewerComponent,
+    AccountSettingsViewerComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
+    MatTabsModule,
+    MatCardModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [CrossroadComponent]
 })
 export class AppModule { }

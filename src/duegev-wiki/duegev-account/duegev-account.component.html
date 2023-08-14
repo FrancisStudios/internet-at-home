@@ -1,1 +1,36 @@
-<p>duegev-account works!</p>
+<div id="account-view-wrapper">
+    <nav class="duegev-title">
+        <button mat-raised-button color="primary" class="add-year">+ New year</button>
+        <span class="title"><button mat-raised-button disabled>welcome $user</button></span>
+    </nav>
+    <hr>
+    <!-- MENU OPTIONS VIEWS -->
+    <div class="content-section">
+        <div class="menu-wrapper">
+            <h3 class="menu-title">Owner's menu</h3>
+            <mat-list>
+                <mat-list-item>
+                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.ACCOUNT)">Account</span></span>
+                    <span matListItemLine>Your own account settings</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.PRIVILEGES)">Privileges</span></span>
+                    <span matListItemLine>Use functions specific to your user</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.ARTICLES)">Articles</span></span>
+                    <span matListItemLine>View and edit articles</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.SORTING)">Sorting</span></span>
+                    <span matListItemLine>View and edit labels and categories</span>
+                </mat-list-item>
+            </mat-list>
+        </div>
+        <!-- MENU OPTION VIEWS -->
+        <div class="options-wrapper">
+            <article-list-viewer *ngIf="activeMenu==MenuItems.ARTICLES"></article-list-viewer>
+            <account-settings-viewer *ngIf="activeMenu==MenuItems.ACCOUNT"></account-settings-viewer>
+        </div>
+    </div>
+</div>
