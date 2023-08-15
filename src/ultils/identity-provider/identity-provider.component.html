@@ -5,9 +5,9 @@
         <span class="lower-header">Identity Provider</span>
 
         <div class="identity-provider-fields" *ngIf="isLogin">
-            <input type="text" id="identity-provider-username" placeholder="username">
-            <input type="password" id="identity-provider-password" placeholder="password">
-            <button class="idp-login-btn" role="button">LOGIN</button>
+            <input type="text" id="identity-provider-username" placeholder="username" (keydown.enter)="authenticateCredentials()">
+            <input type="password" id="identity-provider-password" placeholder="password" (keydown.enter)="authenticateCredentials()">
+            <button class="idp-login-btn" (click)="authenticateCredentials()">LOGIN</button>
         </div>
 
         <div class="identity-provider-checker" *ngIf="!isLogin">
@@ -37,6 +37,7 @@
                     <div></div>
                 </div>
                 <span class="idp-status" style="color: #b00002;">Login failed!</span>
+                <a class="back-link" (click)="backToLogin()">🡄 Back to login</a>
             </div>
 
         </div>

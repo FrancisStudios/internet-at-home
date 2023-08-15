@@ -54,6 +54,8 @@ nav {
 
 .menu-item {
     margin: 2px 10px;
+    text-decoration: none;
+    color: white;
 }
 
 .menu-item:hover{
@@ -87,14 +89,6 @@ nav {
     .date{
         display: none;
     }
-}
-
-.testcontainer{
-    position: absolute;
-    left: 500px;
-    top: 200px;
-    width: 700px;
-    height: 400px;
 }
 
 #viewcontainer{
