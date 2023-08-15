@@ -303,3 +303,14 @@
         opacity: 0.5;
     }
 }
+
+.back-link{
+    margin-top: 8px;
+    color: #002bff;
+    text-decoration: underline;
+    font-size: 13px;
+}
+
+.back-link:active{
+    filter: invert();
+}

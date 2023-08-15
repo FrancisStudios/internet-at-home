@@ -12,19 +12,15 @@
         </div>
     
         <div class="menu-items">
-            <a class="menu-item">Home ▷</a>
-            <a class="menu-item">Browse ▷</a>
-            <a class="menu-item">Login ▷</a>
+            <a class="menu-item" (click)="changeViewPort(VIEWPORTS.HOMEVIEW)">Home ▷</a>
+            <a class="menu-item" (click)="changeViewPort(VIEWPORTS.BROWSEVIEW)">Browse ▷</a>
+            <a *ngIf="!LoggedInUser.username"class="menu-item" href="/utils/identity-provider/duegev-wiki">Login ▷</a>
+            <a *ngIf="LoggedInUser.username!==''" class="menu-item" (click)="changeViewPort(VIEWPORTS.ACCOUNTVIEW)">ACCOUNT ▷</a>
         </div>
     </nav>
     
     <div id="viewcontainer">
-        <duegev-account  *ngIf="isAccountView"></duegev-account>
+        <duegev-account *ngIf="isAccountView"></duegev-account>
+        <duegev-browse *ngIf="isBrowseView"></duegev-browse>
     </div>
 </div>
-
-<!--
-<div class="testcontainer">
-    <md-text-editor></md-text-editor>
-</div>
--->

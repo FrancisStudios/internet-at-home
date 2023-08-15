@@ -1,0 +1,56 @@
+mat-card{
+    margin: 10px;
+}
+
+#articles-browser{
+    height: calc(100% - 80px);
+    background: rgb(235, 235, 235);
+}
+
+#article-search-header{
+    background-color: white;
+}
+
+.article-chipbox-wrapper {
+    margin-left: 10px;
+}
+
+.game-time-display{
+    color: white;
+    font-weight: bold;
+    font-size: 10px;
+    background: gainsboro;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.md-viewer-wrapper{
+    font-family: sans-serif;
+}
+
+.articles-wrapper-card-content {
+    overflow-y: scroll;
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+mat-card-actions>button, a {
+    margin-left: 10px;
+}
+
+.article-card{
+    margin-top: 20px;
+}
+
+#articles-search-bar{
+    padding: 10px;
+    font-size: 15px;
+    font-family: sans-serif;
+    margin-bottom: 20px;
+    width: 70%;
+    border-radius: 50px;
+    margin-right: 20px;
+}

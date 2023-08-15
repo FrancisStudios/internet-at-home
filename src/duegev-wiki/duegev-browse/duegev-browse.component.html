@@ -1,0 +1,60 @@
+<mat-card id="articles-browser">
+    <mat-card-header id="article-search-header">
+        <input type="text" placeholder="Search in all articles..." id="articles-search-bar">
+        <button mat-raised-button color="primary">SEARCH</button>
+    </mat-card-header>
+    <div id="search-params-holder">
+    </div>
+    <mat-divider></mat-divider>
+    <mat-card-content class="articles-wrapper-card-content">
+        <!-- EXAMPLE ( I SHOULD NGFOR THESE)-->
+        <mat-card *ngFor="let a of testArrayForNgFor" class="article-card">
+            <mat-card-header>
+                <mat-card-title>A Dynári Szövetség</mat-card-title>
+                <mat-card-subtitle><span class="game-time-display">K.i. 2441 | Cl.u. 399 | Ersi idő 531 | Nordi idő 550
+                        | Sz.I 938</span></mat-card-subtitle>
+                <mat-card-subtitle>@Jehem</mat-card-subtitle>
+                <mat-card-subtitle>2023.08.14</mat-card-subtitle>
+            </mat-card-header>
+            <div class="article-chipbox-wrapper">
+                <mat-chip-grid>
+                    <mat-chip>Dynar</mat-chip>
+                    <mat-chip>Alliances</mat-chip>
+                    <mat-chip>South-East</mat-chip>
+                </mat-chip-grid>
+            </div>
+            <mat-card-content>
+                <div class="md-viewer-wrapper">
+
+                    <h3>Bla blabla</h3>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab nam corrupti, repudiandae nesciunt
+                    quaerat
+                    maiores est quis! Repellat error mollitia nisi illum optio dolor, recusandae consequuntur voluptate,
+                    minima, sapiente porro.
+
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis laborum sit, porro sint odit autem
+                    suscipit nihil officiis nesciunt itaque consequuntur cum ipsam assumenda aliquid saepe reiciendis
+                    eius
+                    perferendis esse?
+
+                    <br><br>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum sunt voluptatem, laboriosam earum
+                    assumenda qui deserunt expedita accusamus a illum inventore doloremque nesciunt minima nisi
+                    veritatis possimus soluta sapiente hic.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet unde voluptatum ab eligendi
+                    consequatur magni facilis id odit recusandae. Nesciunt aliquam nam at optio nostrum qui perferendis
+                    molestias. Labore, nihil.
+
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" matBadge="8" matBadgePosition="before" matBadgeColor="accent">
+                    LIKE
+                </button>
+                <a mat-raised-button>PERMALINK</a>
+            </mat-card-actions>
+        </mat-card>
+        <!-- /EXAMPLE -->
+
+    </mat-card-content>
+</mat-card>

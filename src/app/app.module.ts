@@ -14,8 +14,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { ArticleListViewerComponent } from '../duegev-wiki/owners-menu-options/article-list-viewer/article-list-viewer.component';
 import { AccountSettingsViewerComponent } from 'src/duegev-wiki/owners-menu-options/account-settings-viewer/account-settings-viewer.component';
+import { DuegevBrowseComponent } from '../duegev-wiki/duegev-browse/duegev-browse.component';
+import { AuthenticationService } from 'src/ultils/services/authentication-service/authentication.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,7 +33,8 @@ import { AccountSettingsViewerComponent } from 'src/duegev-wiki/owners-menu-opti
     MdArticleViewerComponent,
     IdentityProviderComponent,
     ArticleListViewerComponent,
-    AccountSettingsViewerComponent
+    AccountSettingsViewerComponent,
+    DuegevBrowseComponent
   ],
   imports: [
     BrowserModule,
@@ -36,9 +43,14 @@ import { AccountSettingsViewerComponent } from 'src/duegev-wiki/owners-menu-opti
     MatIconModule,
     MatListModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    MatChipsModule,
+    MatBadgeModule,
+    MatFormFieldModule,
+    HttpClientModule,
   ],
   providers: [
+    AuthenticationService
   ],
   bootstrap: [CrossroadComponent]
 })
