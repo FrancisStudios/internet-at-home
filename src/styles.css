@@ -4,4 +4,217 @@ html body {
     height: 100%;
     margin: 0px;
     background-color: #212121;
+    overflow: hidden;
+}
+
+/* GENERIC TEXTFIELD - SHOULD USE IT ALL OVER THE INTRAWEB */
+.intraweb-material-textview {
+    --pure-material-safari-helper1: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+    position: relative;
+    display: inline-block;
+    padding-top: 6px;
+    font-family: var(--pure-material-font, "Roboto", "Segoe UI", BlinkMacSystemFont, system-ui, -apple-system);
+    font-size: 16px;
+    line-height: 1.5;
+    overflow: hidden;
+}
+
+/* Input, Textarea */
+.intraweb-material-textview>input,
+.intraweb-material-textview>textarea {
+    box-sizing: border-box;
+    margin: 0;
+    border: solid 1px;
+    /* Safari */
+    border-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    border-top-color: transparent;
+    border-radius: 4px;
+    padding: 15px 13px 15px;
+    width: 100%;
+    height: inherit;
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
+    background-color: transparent;
+    box-shadow: none;
+    /* Firefox */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    caret-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+/* Span */
+.intraweb-material-textview>input+span,
+.intraweb-material-textview>textarea+span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    border-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    width: 100%;
+    max-height: 100%;
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    font-size: 75%;
+    line-height: 15px;
+    cursor: text;
+    transition: color 0.2s, font-size 0.2s, line-height 0.2s;
+}
+
+/* Corners */
+.intraweb-material-textview>input+span::before,
+.intraweb-material-textview>input+span::after,
+.intraweb-material-textview>textarea+span::before,
+.intraweb-material-textview>textarea+span::after {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    margin-top: 6px;
+    border-top: solid 1px;
+    border-top-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    min-width: 10px;
+    height: 8px;
+    pointer-events: none;
+    box-shadow: inset 0 1px transparent;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.intraweb-material-textview>input+span::before,
+.intraweb-material-textview>textarea+span::before {
+    margin-right: 4px;
+    border-left: solid 1px transparent;
+    border-radius: 4px 0;
+}
+
+.intraweb-material-textview>input+span::after,
+.intraweb-material-textview>textarea+span::after {
+    flex-grow: 1;
+    margin-left: 4px;
+    border-right: solid 1px transparent;
+    border-radius: 0 4px;
+}
+
+/* Hover */
+.intraweb-material-textview:hover>input,
+.intraweb-material-textview:hover>textarea {
+    border-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
+    border-top-color: transparent;
+}
+
+.intraweb-material-textview:hover>input+span::before,
+.intraweb-material-textview:hover>textarea+span::before,
+.intraweb-material-textview:hover>input+span::after,
+.intraweb-material-textview:hover>textarea+span::after {
+    border-top-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
+}
+
+.intraweb-material-textview:hover>input:not(:focus):placeholder-shown,
+.intraweb-material-textview:hover>textarea:not(:focus):placeholder-shown {
+    border-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
+}
+
+/* Placeholder-shown */
+.intraweb-material-textview>input:not(:focus):placeholder-shown,
+.intraweb-material-textview>textarea:not(:focus):placeholder-shown {
+    border-top-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+}
+
+.intraweb-material-textview>input:not(:focus):placeholder-shown+span,
+.intraweb-material-textview>textarea:not(:focus):placeholder-shown+span {
+    font-size: inherit;
+    line-height: 68px;
+}
+
+.intraweb-material-textview>input:not(:focus):placeholder-shown+span::before,
+.intraweb-material-textview>textarea:not(:focus):placeholder-shown+span::before,
+.intraweb-material-textview>input:not(:focus):placeholder-shown+span::after,
+.intraweb-material-textview>textarea:not(:focus):placeholder-shown+span::after {
+    border-top-color: transparent;
+}
+
+/* Focus */
+.intraweb-material-textview>input:focus,
+.intraweb-material-textview>textarea:focus {
+    border-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+    border-top-color: transparent;
+    box-shadow: inset 1px 0 var(--pure-material-safari-helper1), inset -1px 0 var(--pure-material-safari-helper1), inset 0 -1px var(--pure-material-safari-helper1);
+    outline: none;
+}
+
+.intraweb-material-textview>input:focus+span,
+.intraweb-material-textview>textarea:focus+span {
+    color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+}
+
+.intraweb-material-textview>input:focus+span::before,
+.intraweb-material-textview>input:focus+span::after,
+.intraweb-material-textview>textarea:focus+span::before,
+.intraweb-material-textview>textarea:focus+span::after {
+    border-top-color: var(--pure-material-safari-helper1) !important;
+    box-shadow: inset 0 1px var(--pure-material-safari-helper1);
+}
+
+/* Disabled */
+.intraweb-material-textview>input:disabled,
+.intraweb-material-textview>input:disabled+span,
+.intraweb-material-textview>textarea:disabled,
+.intraweb-material-textview>textarea:disabled+span {
+    border-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38) !important;
+    border-top-color: transparent !important;
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+    pointer-events: none;
+}
+
+.intraweb-material-textview>input:disabled+span::before,
+.intraweb-material-textview>input:disabled+span::after,
+.intraweb-material-textview>textarea:disabled+span::before,
+.intraweb-material-textview>textarea:disabled+span::after {
+    border-top-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38) !important;
+}
+
+.intraweb-material-textview>input:disabled:placeholder-shown,
+.intraweb-material-textview>input:disabled:placeholder-shown+span,
+.intraweb-material-textview>textarea:disabled:placeholder-shown,
+.intraweb-material-textview>textarea:disabled:placeholder-shown+span {
+    border-top-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38) !important;
+}
+
+.intraweb-material-textview>input:disabled:placeholder-shown+span::before,
+.intraweb-material-textview>input:disabled:placeholder-shown+span::after,
+.intraweb-material-textview>textarea:disabled:placeholder-shown+span::before,
+.intraweb-material-textview>textarea:disabled:placeholder-shown+span::after {
+    border-top-color: transparent !important;
+}
+
+/* Faster transition in Safari for less noticable fractional font-size issue */
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+
+        .intraweb-material-textview>input,
+        .intraweb-material-textview>input+span,
+        .intraweb-material-textview>textarea,
+        .intraweb-material-textview>textarea+span,
+        .intraweb-material-textview>input+span::before,
+        .intraweb-material-textview>input+span::after,
+        .intraweb-material-textview>textarea+span::before,
+        .intraweb-material-textview>textarea+span::after {
+            transition-duration: 0.1s;
+        }
+    }
+}
+
+/* CUSTOM SCROLLBAR */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
