@@ -1,0 +1,42 @@
+.chip-list-wrapper {
+    font-family: sans-serif;
+    color: #212121;
+    display: flex;
+    font-size: 11pt;
+    text-transform: lowercase;
+    margin-left: 5px;
+}
+
+.chip-list-name {
+    margin-right: 5px;
+}
+
+.custom-chip {
+    background-color: gainsboro;
+    color: #212121;
+    margin: 0px 5px;
+    padding: 1px 5px;
+    border-radius: 20px;
+    font-size: 10pt;
+}
+
+
+.cc-primary {
+    background-color: #0275d8;
+    color: white;
+}
+
+.cc-dark {
+    background-color: #212121;
+    color: white;
+}
+
+.cc-light {
+    background-color: #f7f7f7;
+    color: #212121;
+}
+
+.cc-warning {
+    background-color: #d9534f;
+    color: white;
+}

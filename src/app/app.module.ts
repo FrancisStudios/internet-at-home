@@ -22,6 +22,10 @@ import { AccountSettingsViewerComponent } from 'src/duegev-wiki/owners-menu-opti
 import { DuegevBrowseComponent } from '../duegev-wiki/duegev-browse/duegev-browse.component';
 import { AuthenticationService } from 'src/ultils/services/authentication-service/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { WikiArticleService } from 'src/ultils/services/article-provider-service/wiki-article.service';
+import { DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/duegev-time-provider.service';
+import { CustomChipListComponent } from '../ultils/custom-ui/custom-chip-list/custom-chip-list.component';
+import { GetUserByService } from 'src/ultils/services/authentication-service/get-user-by.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     IdentityProviderComponent,
     ArticleListViewerComponent,
     AccountSettingsViewerComponent,
-    DuegevBrowseComponent
+    DuegevBrowseComponent,
+    CustomChipListComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,10 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
   ],
   providers: [
-    AuthenticationService
+    AuthenticationService,
+    WikiArticleService,
+    DuegevTimeProvider,
+    GetUserByService
   ],
   bootstrap: [CrossroadComponent]
 })

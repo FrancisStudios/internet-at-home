@@ -1,5 +1,6 @@
 export type UserData = {
-    _id: number
+    _id: number,
+    uid: number,
     username: string,
     password: string,
     nickname: string,

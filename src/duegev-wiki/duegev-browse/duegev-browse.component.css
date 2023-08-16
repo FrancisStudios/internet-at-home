@@ -13,6 +13,9 @@ mat-card{
 
 .article-chipbox-wrapper {
     margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .game-time-display{

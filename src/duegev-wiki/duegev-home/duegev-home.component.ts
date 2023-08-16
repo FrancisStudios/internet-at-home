@@ -14,7 +14,7 @@ export class DuegevHomeComponent {
   VIEWPORTS = VIEWPORTS;
   viewPort: VIEWPORTS = VIEWPORTS.BROWSEVIEW;
   user_session : string = sessionStorage.getItem(SessionStorageItems.USER) || '';
-  LoggedInUser : UserData = JSON.parse(this.user_session);
+  LoggedInUser : UserData = this.user_session? JSON.parse(this.user_session) : '';
 
   ngOnInit(): void {
     

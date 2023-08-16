@@ -1,0 +1,7 @@
+<div class="chip-list-wrapper">
+    <span class="chip-list-name">{{listName}}:</span>
+    <div class="chips-container">
+        <span class="custom-chip" *ngFor="let chip of chips"
+            class="{{chip.color!=='' ? 'cc-'+chip.color : ''}}">{{chip.text}}</span>
+    </div>
+</div>
