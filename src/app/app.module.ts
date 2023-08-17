@@ -17,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { ArticleListViewerComponent } from '../duegev-wiki/owners-menu-options/article-list-viewer/article-list-viewer.component';
 import { AccountSettingsViewerComponent } from 'src/duegev-wiki/owners-menu-options/account-settings-viewer/account-settings-viewer.component';
 import { DuegevBrowseComponent } from '../duegev-wiki/duegev-browse/duegev-browse.component';
@@ -53,12 +54,14 @@ import { GetUserByService } from 'src/ultils/services/authentication-service/get
     MatBadgeModule,
     MatFormFieldModule,
     HttpClientModule,
+    MatDialogModule
   ],
   providers: [
     AuthenticationService,
     WikiArticleService,
     DuegevTimeProvider,
-    GetUserByService
+    GetUserByService,
+    MatDialog
   ],
   bootstrap: [CrossroadComponent]
 })

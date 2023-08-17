@@ -12,9 +12,22 @@ export class GetUserByService {
     constructor(private httpClient: HttpClient) { }
 
     getUserByUID(UID: number): Observable<any> {
-        const queryObject = {query: "getUserBy", value: `uid='${UID}'`};
+        const queryObject = { query: "getUserBy", value: `uid='${UID}'` };
         const payload = JSON.stringify(queryObject);
-        return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/userop`, payload, { headers: this.headers });
+        return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/user-ops`, payload, { headers: this.headers });
+    }
+
+    getAllUsers(): Observable<any> {
+        const queryObject = { query: "getAllUsers" };
+        const payload = JSON.stringify(queryObject);
+        return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/user-ops`, payload, { headers: this.headers });
+    }
+
+    testService() {
+        this.httpClient.post('http://localhost:3000/user-ops', '{}', { headers: new HttpHeaders({ 'Content-Type': 'application/JSON' }) }).subscribe((response) => {
+            console.log(response)
+            return response;
+        });
     }
 }
 

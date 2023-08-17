@@ -12,7 +12,7 @@
             <mat-card-header>
                 <mat-card-title>{{article.title}}</mat-card-title>
                 <mat-card-subtitle><span class="game-time-display">{{getTimeByCT(article.date)}}</span></mat-card-subtitle>
-                <mat-card-subtitle>{{getUserByUID(article.author)}}</mat-card-subtitle>
+                <mat-card-subtitle>{{ getNicknameByUID(article.author) }}</mat-card-subtitle>
                 <mat-card-subtitle>{{article.irl_date}}</mat-card-subtitle>
             </mat-card-header>
             <div class="article-chipbox-wrapper">
@@ -25,7 +25,7 @@
                 </div>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-raised-button color="primary" matBadge="{{getNumberOfLikes(article.likes)}}" matBadgePosition="before" matBadgeColor="accent">
+                <button mat-raised-button color="primary" matBadge="{{getNumberOfLikes(article.likes)}}" matBadgePosition="before" matBadgeColor="accent" (click)="like()">
                     LIKE
                 </button>
                 <a mat-raised-button (click)="copyPermalinkToClipboard(article.article_id)">PERMALINK</a>
