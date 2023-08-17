@@ -15,7 +15,7 @@
             <a class="menu-item" (click)="changeViewPort(VIEWPORTS.HOMEVIEW)">Home ▷</a>
             <a class="menu-item" (click)="changeViewPort(VIEWPORTS.BROWSEVIEW)">Browse ▷</a>
             <a *ngIf="!LoggedInUser.username"class="menu-item" href="/utils/identity-provider/duegev-wiki">Login ▷</a>
-            <a *ngIf="LoggedInUser.username!==''" class="menu-item" (click)="changeViewPort(VIEWPORTS.ACCOUNTVIEW)">ACCOUNT ▷</a>
+            <a *ngIf="LoggedInUser.username!" class="menu-item" (click)="changeViewPort(VIEWPORTS.ACCOUNTVIEW)">ACCOUNT ▷</a>
         </div>
     </nav>
     

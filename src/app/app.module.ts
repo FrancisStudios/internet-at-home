@@ -17,11 +17,16 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { ArticleListViewerComponent } from '../duegev-wiki/owners-menu-options/article-list-viewer/article-list-viewer.component';
 import { AccountSettingsViewerComponent } from 'src/duegev-wiki/owners-menu-options/account-settings-viewer/account-settings-viewer.component';
 import { DuegevBrowseComponent } from '../duegev-wiki/duegev-browse/duegev-browse.component';
 import { AuthenticationService } from 'src/ultils/services/authentication-service/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { WikiArticleService } from 'src/ultils/services/article-provider-service/wiki-article.service';
+import { DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/duegev-time-provider.service';
+import { CustomChipListComponent } from '../ultils/custom-ui/custom-chip-list/custom-chip-list.component';
+import { GetUserByService } from 'src/ultils/services/authentication-service/get-user-by.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     IdentityProviderComponent,
     ArticleListViewerComponent,
     AccountSettingsViewerComponent,
-    DuegevBrowseComponent
+    DuegevBrowseComponent,
+    CustomChipListComponent
   ],
   imports: [
     BrowserModule,
@@ -48,9 +54,14 @@ import { HttpClientModule } from '@angular/common/http';
     MatBadgeModule,
     MatFormFieldModule,
     HttpClientModule,
+    MatDialogModule
   ],
   providers: [
-    AuthenticationService
+    AuthenticationService,
+    WikiArticleService,
+    DuegevTimeProvider,
+    GetUserByService,
+    MatDialog
   ],
   bootstrap: [CrossroadComponent]
 })
