@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
+import { UserData } from 'src/data-types/authentication/user-data';
 
 @Component({
   selector: 'duegev-account',
@@ -8,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 export class DuegevAccountComponent implements OnInit {
   activeMenu: MenuItems = MenuItems.ACCOUNT;
   MenuItems = MenuItems;
+  loggedInUser: UserData | any;
+  isCreativeMenuEnabled: boolean = false;
+
   constructor(){}
 
   ngOnInit(): void {
+    this.loggedInUser = this.getLoggedInUser;
   }
 
   menuClicked(_mItem: MenuItems) {
@@ -28,6 +34,15 @@ export class DuegevAccountComponent implements OnInit {
         this.activeMenu = MenuItems.SORTING
         break;
     }
+  }
+
+  get getLoggedInUser () {
+    const linus = sessionStorage.getItem(SessionStorageItems.USER);
+    if(linus) return JSON.parse(linus);
+  }
+
+  enableCreativeMenu(){
+    this.isCreativeMenuEnabled = !this.isCreativeMenuEnabled;
   }
 }
 

@@ -27,6 +27,8 @@ import { WikiArticleService } from 'src/ultils/services/article-provider-service
 import { DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/duegev-time-provider.service';
 import { CustomChipListComponent } from '../ultils/custom-ui/custom-chip-list/custom-chip-list.component';
 import { GetUserByService } from 'src/ultils/services/authentication-service/get-user-by.service';
+import { DuegevCreativeMenuComponent } from '../duegev-wiki/duegev-creative-menu/duegev-creative-menu.component';
+import { LabelsAndCategoriesService } from 'src/ultils/services/article-provider-service/labels-and-categories.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { GetUserByService } from 'src/ultils/services/authentication-service/get
     ArticleListViewerComponent,
     AccountSettingsViewerComponent,
     DuegevBrowseComponent,
-    CustomChipListComponent
+    CustomChipListComponent,
+    DuegevCreativeMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,7 @@ import { GetUserByService } from 'src/ultils/services/authentication-service/get
     AuthenticationService,
     WikiArticleService,
     DuegevTimeProvider,
+    LabelsAndCategoriesService,
     GetUserByService,
     MatDialog
   ],
