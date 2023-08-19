@@ -1,0 +1,55 @@
+<mat-card>
+    <div class="creative-menu-header">
+        <div>
+            <mat-card-title class="creative-menu-title">DÛGEV CREATIVE MENU</mat-card-title>
+            <mat-card-subtitle>by FrancisStudios</mat-card-subtitle>
+        </div>
+        <div class="action-buttons-holder">
+            <button mat-raised-button color="primary">Save</button>
+            <button mat-raised-button color="warn">Abandon</button>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        <div class="meta-content-holder">
+            <div class="dublinator">
+                <label class="input-label">
+                    <span>Article title:</span>
+                    <input type="text" class="generic-input" placeholder="Type a title...">
+                </label>
+                <label class="input-label">
+                    <span>Dûgev time:</span>
+                    <input type="number" class="generic-input" placeholder="Közös idő...">
+                </label>
+            </div>
+            <div class="label-editor">
+                <table>
+                    <tr>
+                        <td><span>Add labels: </span></td>
+                        <td>
+                            <select name="" id="creative-menu-labels" class="labels-select">
+                                <option value="no-label" class="label-selector-value" disabled>no label</option>
+                                <option *ngFor="let label of labelsValues" value="{{label}}" class="label-selector-value">{{label}}</option>
+                            </select>
+                        </td>
+                        <td><button mat-raised-button (click)="addLabel()">Add</button></td>
+                        <td><custom-chip-list [chips]="addedLabels"></custom-chip-list></td>
+                    </tr>
+                    <tr>
+                        <td><span>Add categories: </span></td>
+                        <td>
+                            <select name="" id="creative-menu-categories" class="labels-select">
+                                <option value="no-category" class="label-selector-value" disabled>no category</option>
+                                <option *ngFor="let category of categoriesValues" value="{{category}}" class="label-selector-value">{{category}}</option>
+                            </select>
+                        </td>
+                        <td><button mat-raised-button (click)="addCategory()">Add</button></td>
+                        <td><custom-chip-list [chips]="addedCategories"></custom-chip-list></td>
+                    </tr>
+                </table>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+        <md-text-editor></md-text-editor>
+    </mat-card-content>
+</mat-card>
