@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
+import { UserData } from 'src/data-types/authentication/user-data';
 import { LabelsAndCategoriesService } from 'src/ultils/services/article-provider-service/labels-and-categories.service';
+import { ArticleSearchQueryType, WikiArticleService } from 'src/ultils/services/article-provider-service/wiki-article.service';
 
 @Component({
   selector: 'duegev-creative-menu',
@@ -15,7 +18,10 @@ export class DuegevCreativeMenuComponent implements OnInit {
   addedCategories: { text: string, color: string }[] = [];
   addedLabels: { text: string, color: string }[] = [];
 
-  constructor(private sortersService: LabelsAndCategoriesService) { }
+  @Output() closeCreativeMenu = new EventEmitter<boolean>();
+
+  constructor(private sortersService: LabelsAndCategoriesService,
+    private articleService: WikiArticleService) { }
 
   ngOnInit(): void {
     this.sortersService.getSorters({ query: 'labels' }).subscribe(labelsList => {
@@ -35,11 +41,48 @@ export class DuegevCreativeMenuComponent implements OnInit {
 
   addLabel() {
     let selectedValue = (<HTMLSelectElement>document.getElementById('creative-menu-labels')).value;
-    this.addedLabels.push({text: selectedValue, color: 'primary'});
+    this.addedLabels.push({ text: selectedValue, color: 'primary' });
   }
 
   addCategory() {
     let selectedValue = (<HTMLSelectElement>document.getElementById('creative-menu-categories')).value;
-    this.addedCategories.push({text: selectedValue, color: 'dark'});
+    this.addedCategories.push({ text: selectedValue, color: 'dark' });
+  }
+
+  closeCreativeMenuWindow() {
+    this.closeCreativeMenu.emit(true);
+  }
+
+  saveDocument() {
+    let loggedInUser: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) || '');
+
+    if (loggedInUser && (loggedInUser.password && loggedInUser.username)) {
+      let title = (<HTMLInputElement>document.getElementById('article-title-input')).value;
+      let duegev_date = Number((<HTMLInputElement>document.getElementById('article-duegev-time-input')).value);
+      let nilDate: Date = new Date();
+
+      let currentDate = `${nilDate.getFullYear()}.${nilDate.getMonth()+1}.${nilDate.getDate()}`;
+
+      let query: ArticleSearchQueryType = {
+        query: 'insert',
+        values: {
+          _id: 1, // ehhez le kéne kérni az utsó doksit és annak az id + 1-e
+          article_id: '1', // szintén zenész
+          title: title,
+          date: duegev_date,
+          author: loggedInUser.uid,
+          irl_date: currentDate,
+          labels: this.addedLabels.map(value=>value.text),
+          categories: this.addedCategories.map(value=>value.text),
+          document: '',
+          likes: []
+        }
+      }
+
+      console.log(query);
+      //this.articleService.insertNewArticle(query).subscribe()
+    } else {
+      /* TODO: open dialog with login options */
+    }
   }
 }

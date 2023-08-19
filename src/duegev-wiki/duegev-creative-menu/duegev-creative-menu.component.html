@@ -5,8 +5,8 @@
             <mat-card-subtitle>by FrancisStudios</mat-card-subtitle>
         </div>
         <div class="action-buttons-holder">
-            <button mat-raised-button color="primary">Save</button>
-            <button mat-raised-button color="warn">Abandon</button>
+            <button mat-raised-button color="primary" (click)="saveDocument()">Save</button>
+            <button mat-raised-button color="warn" (click)="closeCreativeMenuWindow()">Abandon</button>
         </div>
     </div>
     <mat-divider></mat-divider>
@@ -15,11 +15,11 @@
             <div class="dublinator">
                 <label class="input-label">
                     <span>Article title:</span>
-                    <input type="text" class="generic-input" placeholder="Type a title...">
+                    <input type="text" class="generic-input" placeholder="Type a title..." id="article-title-input">
                 </label>
                 <label class="input-label">
                     <span>Dûgev time:</span>
-                    <input type="number" class="generic-input" placeholder="Közös idő...">
+                    <input type="number" class="generic-input" placeholder="Közös idő..." id="article-duegev-time-input">
                 </label>
             </div>
             <div class="label-editor">
