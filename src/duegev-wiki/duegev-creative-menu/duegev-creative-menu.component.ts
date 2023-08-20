@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
 import { UserData } from 'src/data-types/authentication/user-data';
 import { LabelsAndCategoriesService } from 'src/ultils/services/article-provider-service/labels-and-categories.service';
@@ -9,14 +10,18 @@ import { ArticleSearchQueryType, WikiArticleService } from 'src/ultils/services/
   templateUrl: './duegev-creative-menu.component.html',
   styleUrls: ['./duegev-creative-menu.component.css']
 })
-export class DuegevCreativeMenuComponent implements OnInit {
+export class DuegevCreativeMenuComponent implements OnInit, OnDestroy {
   Labels: any[] = [];
   labelsValues: string[] = [];
   Categories: any[] = [];
   categoriesValues: string[] = [];
+  latestDocumentID: number = 0;
+  MD_document: Subject<string> = new Subject<string>();
 
   addedCategories: { text: string, color: string }[] = [];
   addedLabels: { text: string, color: string }[] = [];
+
+  isSaveEnabled: boolean = false;
 
   @Output() closeCreativeMenu = new EventEmitter<boolean>();
 
@@ -37,6 +42,16 @@ export class DuegevCreativeMenuComponent implements OnInit {
         this.Categories.forEach(category => { this.categoriesValues.push(category.category) });
       }
     });
+    this.articleService.getLatest().subscribe(latestArticleQueryResponse => {
+      if (latestArticleQueryResponse.queryValidation === 'valid') {
+        this.latestDocumentID = latestArticleQueryResponse.articles[0]._id;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.isSaveEnabled = false;
+    this.MD_document.unsubscribe();
   }
 
   addLabel() {
@@ -50,37 +65,42 @@ export class DuegevCreativeMenuComponent implements OnInit {
   }
 
   closeCreativeMenuWindow() {
+    this.isSaveEnabled = false;
     this.closeCreativeMenu.emit(true);
   }
+
+  getMD(event: string) { this.MD_document.next(event) }
 
   saveDocument() {
     let loggedInUser: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) || '');
 
     if (loggedInUser && (loggedInUser.password && loggedInUser.username)) {
-      let title = (<HTMLInputElement>document.getElementById('article-title-input')).value;
-      let duegev_date = Number((<HTMLInputElement>document.getElementById('article-duegev-time-input')).value);
-      let nilDate: Date = new Date();
+      this.isSaveEnabled = true;
+      this.MD_document.subscribe(document_value => {
+        let title = (<HTMLInputElement>document.getElementById('article-title-input')).value;
+        let duegev_date = Number((<HTMLInputElement>document.getElementById('article-duegev-time-input')).value);
+        let nilDate: Date = new Date();
 
-      let currentDate = `${nilDate.getFullYear()}.${nilDate.getMonth()+1}.${nilDate.getDate()}`;
+        let currentDate = `${nilDate.getFullYear()}.${nilDate.getMonth() + 1}.${nilDate.getDate()}`;
 
-      let query: ArticleSearchQueryType = {
-        query: 'insert',
-        values: {
-          _id: 1, // ehhez le kéne kérni az utsó doksit és annak az id + 1-e
-          article_id: '1', // szintén zenész
-          title: title,
-          date: duegev_date,
-          author: loggedInUser.uid,
-          irl_date: currentDate,
-          labels: this.addedLabels.map(value=>value.text),
-          categories: this.addedCategories.map(value=>value.text),
-          document: '',
-          likes: []
+        let query: ArticleSearchQueryType = {
+          query: 'insert',
+          values: {
+            _id: this.latestDocumentID + 1,
+            article_id: `article_${this.latestDocumentID + 1}`,
+            title: title,
+            date: duegev_date,
+            author: loggedInUser.uid,
+            irl_date: currentDate,
+            labels: this.addedLabels.map(value => value.text),
+            categories: this.addedCategories.map(value => value.text),
+            document: document_value,
+            likes: []
+          }
         }
-      }
 
-      console.log(query);
-      //this.articleService.insertNewArticle(query).subscribe()
+        this.articleService.insertNewArticle(query).subscribe()
+      })
     } else {
       /* TODO: open dialog with login options */
     }

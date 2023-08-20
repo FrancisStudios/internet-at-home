@@ -50,6 +50,6 @@
             </div>
             <mat-divider></mat-divider>
         </div>
-        <md-text-editor></md-text-editor>
+        <md-text-editor (textContent)="getMD($event)" [getTextContent]="isSaveEnabled"></md-text-editor>
     </mat-card-content>
 </mat-card>

@@ -17,6 +17,10 @@ export class WikiArticleService {
         return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/article`, payload, { headers: this.headers });
     }
 
+    getLatest(): Observable<any>{
+        return this.getArticles({ query: 'get-latest'});
+    }
+
     insertNewArticle(searchquery: ArticleSearchQueryType): Observable<any> {
         return this.getArticles(searchquery);
     }
