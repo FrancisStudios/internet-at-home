@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
 import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
 import { UserData } from 'src/data-types/authentication/user-data';
 import { LabelsAndCategoriesService } from 'src/ultils/services/article-provider-service/labels-and-categories.service';
@@ -25,8 +27,10 @@ export class DuegevCreativeMenuComponent implements OnInit, OnDestroy {
 
   @Output() closeCreativeMenu = new EventEmitter<boolean>();
 
-  constructor(private sortersService: LabelsAndCategoriesService,
-    private articleService: WikiArticleService) { }
+  constructor(
+    private sortersService: LabelsAndCategoriesService,
+    private articleService: WikiArticleService,
+    private dialogProvider: MatDialog) { }
 
   ngOnInit(): void {
     this.sortersService.getSorters({ query: 'labels' }).subscribe(labelsList => {
@@ -99,10 +103,57 @@ export class DuegevCreativeMenuComponent implements OnInit, OnDestroy {
           }
         }
 
-        this.articleService.insertNewArticle(query).subscribe()
+        this.articleService.insertNewArticle(query).subscribe(queryResponse => {
+          if (queryResponse.queryValidation && queryResponse.queryValidation === 'valid') {
+            this.dialogProvider.open(DuegevDocumentSaveStatusDialog);
+            this.closeCreativeMenuWindow();
+          } else {
+            sessionStorage.setItem(SessionStorageItems.UNSAVED_ARTICLE, JSON.stringify(query));
+            this.dialogProvider.open(DuegevIncompleteSaveStatusDialog);
+            this.closeCreativeMenuWindow();
+          }
+        });
       })
     } else {
-      /* TODO: open dialog with login options */
+      /* TODO: 
+      - save the document into local storage 
+      - open dialog with login options 
+      */
     }
   }
 }
+
+/* 
+  STATUS FEEDBACK DIALOGS
+*/
+@Component({
+  selector: 'duegev-document-save-status-dialog',
+  template: `
+  <h1 mat-dialog-title>Document Saved!</h1>
+  <div mat-dialog-content>Your document is saved, now you can go and see it in the articles browser</div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+  `,
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule],
+})
+export class DuegevDocumentSaveStatusDialog { }
+
+@Component({
+  selector: 'duegev-incomplete-save-status-dialog',
+  template: `
+  <h1 mat-dialog-title>ERROR!</h1>
+  <div mat-dialog-content>
+    Your document can not be saved because of server side issues. Contact webmaster!
+    <br>
+    <i>github.com/FrancisStudios</i>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+  `,
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule],
+})
+export class DuegevIncompleteSaveStatusDialog { }
