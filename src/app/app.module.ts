@@ -29,6 +29,7 @@ import { CustomChipListComponent } from '../ultils/custom-ui/custom-chip-list/cu
 import { GetUserByService } from 'src/ultils/services/authentication-service/get-user-by.service';
 import { DuegevCreativeMenuComponent } from '../duegev-wiki/duegev-creative-menu/duegev-creative-menu.component';
 import { LabelsAndCategoriesService } from 'src/ultils/services/article-provider-service/labels-and-categories.service';
+import { DuegevArticleLikeService } from 'src/ultils/services/article-provider-service/like.service';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { LabelsAndCategoriesService } from 'src/ultils/services/article-provider
     DuegevTimeProvider,
     LabelsAndCategoriesService,
     GetUserByService,
+    DuegevArticleLikeService,
     MatDialog
   ],
   bootstrap: [CrossroadComponent]
