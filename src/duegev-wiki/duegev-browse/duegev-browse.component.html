@@ -25,7 +25,7 @@
                 </div>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-raised-button color="primary" matBadge="{{getNumberOfLikes(article.likes)}}" matBadgePosition="before" matBadgeColor="accent" (click)="like()">
+                <button mat-raised-button color="primary" matBadge="{{getNumberOfLikes(article.likes)}}" matBadgePosition="before" matBadgeColor="accent" (click)="like(article.article_id, article.likes)">
                     LIKE
                 </button>
                 <a mat-raised-button (click)="copyPermalinkToClipboard(article.article_id)">PERMALINK</a>

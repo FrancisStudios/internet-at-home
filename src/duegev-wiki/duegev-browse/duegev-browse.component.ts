@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
 import { UserData } from 'src/data-types/authentication/user-data';
 import { WikiArticle } from 'src/data-types/duegev-wiki/article.type';
 import { CustomChipType } from 'src/ultils/custom-ui/custom-chip-list/custom-chip-list.component';
+import { DuegevArticleLikeService } from 'src/ultils/services/article-provider-service/like.service';
 import { ArticleSearchQueryType, WikiArticleService } from 'src/ultils/services/article-provider-service/wiki-article.service';
 import { GetUserByService } from 'src/ultils/services/authentication-service/get-user-by.service';
 import { DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/duegev-time-provider.service';
@@ -23,7 +24,8 @@ export class DuegevBrowseComponent implements OnInit {
     private articleService: WikiArticleService,
     private timeProvider: DuegevTimeProvider,
     private getUserByService: GetUserByService,
-    private dialogProvider: MatDialog) { }
+    private dialogProvider: MatDialog,
+    private likeService: DuegevArticleLikeService) { }
 
   ngOnInit(): void {
     this.articleService.getArticles(this.searchquery).subscribe(response => {
@@ -75,15 +77,35 @@ export class DuegevBrowseComponent implements OnInit {
     return selectedUser[0]?.nickname;
   }
 
-  like(): void {
-    /* 
-    PROCEDURE:
-      1 get current user from sessionStorage()
-      2 IF: user is present -> /login & IF: verified -> give like with their UID
-          ELSE: dialog -> please login to use this feature
-    */
+  like(article_id: string, likesArray: any[]): void {
+    if (!Array.isArray(likesArray)) likesArray = JSON.parse(likesArray) as number[];
 
-    this.dialogProvider.open(LoginIsNeededDialog);
+    if (sessionStorage.getItem(SessionStorageItems.USER)) {
+      let linuser: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) || '');
+      if (linuser.username && linuser.password) {
+
+        const requestObject = {
+          username: linuser.username,
+          password: linuser.password,
+          article_id: article_id
+        }
+
+        likesArray = likesArray.map(e => Number(e));
+
+        if (likesArray.includes(linuser.uid)) {
+          /* REMOVE ONE LIKE */
+          this.likeService.removeLike(requestObject).subscribe(res=>{
+            this.ngOnInit();
+          });
+        } else {
+          /* ADD ONE LIKE */
+          this.likeService.giveLike(requestObject).subscribe(res=>{
+            this.ngOnInit();
+          });
+        }
+
+      } else this.dialogProvider.open(LoginIsNeededDialog);
+    } else this.dialogProvider.open(LoginIsNeededDialog);
   }
 }
 
