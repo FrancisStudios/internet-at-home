@@ -115,10 +115,8 @@ export class DuegevCreativeMenuComponent implements OnInit, OnDestroy {
         });
       })
     } else {
-      /* TODO: 
-      - save the document into local storage 
-      - open dialog with login options 
-      */
+      this.dialogProvider.open(DuegevSaveDocumentRequiresLoggingInActionDialog);
+      this.closeCreativeMenuWindow();
     }
   }
 }
@@ -157,3 +155,22 @@ export class DuegevDocumentSaveStatusDialog { }
   imports: [MatDialogModule, MatButtonModule],
 })
 export class DuegevIncompleteSaveStatusDialog { }
+
+@Component({
+  selector: 'duegev-save-document-requires-logging-in-action-dialog',
+  template: `
+  <h1 mat-dialog-title>You are not logged in!</h1>
+  <div mat-dialog-content>
+    It seems like you are not logged in. Your account is no longer logged in
+    or an error occured during saving this document. 
+
+    Please make sure that you are logged in to perform this action.
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+  `,
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule],
+})
+export class DuegevSaveDocumentRequiresLoggingInActionDialog { }
