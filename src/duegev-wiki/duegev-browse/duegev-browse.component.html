@@ -7,7 +7,7 @@
     </div>
     <mat-divider></mat-divider>
     <mat-card-content class="articles-wrapper-card-content">
-        <!-- EXAMPLE ( I SHOULD NGFOR THESE)-->
+        <!-- ARTICLE -->
         <mat-card *ngFor="let article of articles" class="article-card">
             <mat-card-header>
                 <mat-card-title>{{article.title}}</mat-card-title>
@@ -31,7 +31,7 @@
                 <a mat-raised-button (click)="copyPermalinkToClipboard(article.article_id)">PERMALINK</a>
             </mat-card-actions>
         </mat-card>
-        <!-- /EXAMPLE -->
+        <!-- /ARTICLE -->
 
     </mat-card-content>
 </mat-card>

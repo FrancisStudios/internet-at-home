@@ -17,8 +17,13 @@ export class WikiArticleService {
         return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/article`, payload, { headers: this.headers });
     }
 
-    getLatest(): Observable<any>{
-        return this.getArticles({ query: 'get-latest'});
+    getArticleByID(article_id: string): Observable<any> {
+        const _query: ArticleSearchQueryType = { query: 'get-article-by-id', values: article_id };
+        return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/article`, _query, { headers: this.headers });
+    }
+
+    getLatest(): Observable<any> {
+        return this.getArticles({ query: 'get-latest' });
     }
 
     insertNewArticle(searchquery: ArticleSearchQueryType): Observable<any> {
@@ -28,6 +33,6 @@ export class WikiArticleService {
 
 export type ArticleSearchQueryType = {
     query: string,
-    values?: WikiArticle
+    values?: WikiArticle | string
 }
 

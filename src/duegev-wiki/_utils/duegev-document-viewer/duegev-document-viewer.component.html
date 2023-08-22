@@ -1,1 +1,35 @@
-<p>duegev-document-viewer works!</p>
+<div id="article-viewer-wrapper">
+    <div class="article-viewer-header">
+        <a href="/duegev-wiki"><button mat-raised-button>🡄 BACK</button></a>
+        <span class="menu-name">Article Viewer</span>
+    </div>
+    <div id="card-container">
+        <mat-card class="article-card" *ngIf="article">
+            <mat-card-header>
+                <mat-card-title>{{article.title}}</mat-card-title>
+                <mat-card-subtitle><span
+                        class="game-time-display">{{getTimeByCT(article.date)}}</span></mat-card-subtitle>
+                <mat-card-subtitle>{{ getNicknameByUID(article.author) }}</mat-card-subtitle>
+                <mat-card-subtitle>{{article.irl_date}}</mat-card-subtitle>
+            </mat-card-header>
+            <div class="article-chipbox-wrapper">
+                <custom-chip-list [listName]="'Categories'"
+                    [chips]="mapLabelsToChips(article.categories, 'primary')"></custom-chip-list>
+                <custom-chip-list [listName]="'Labels'"
+                    [chips]="mapLabelsToChips(article.labels, 'dark')"></custom-chip-list>
+            </div>
+            <mat-card-content>
+                <div class="md-viewer-wrapper">
+                    <md-article-viewer [articleContent]="article.document"></md-article-viewer>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" matBadge="{{getNumberOfLikes(article.likes)}}"
+                    matBadgePosition="before" matBadgeColor="accent" (click)="like(article.article_id, article.likes)">
+                    LIKE
+                </button>
+                <a mat-raised-button (click)="copyPermalinkToClipboard(article.article_id)">PERMALINK</a>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
