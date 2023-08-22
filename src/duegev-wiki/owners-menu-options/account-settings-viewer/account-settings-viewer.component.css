@@ -1,5 +1,13 @@
-.account-form-wrapper{
+.account-form-wrapper {
     margin: 10px;
     font-family: sans-serif;
     color: #212121;
+}
+
+td {
+    padding: 5px;
+}
+
+.fullname {
+    font-size: 10pt !important;
 }

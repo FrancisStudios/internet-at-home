@@ -1,11 +1,55 @@
 <div class="account-form-wrapper">
     <mat-card>
         <mat-card-content>
-            <h2>Ingame information</h2>
-            <label class="intraweb-material-textview">
-                <input placeholder=" ">
-                <span>Nickname</span>
-            </label>
+            <h2>Account settings</h2>
+            <table>
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Login Username</mat-label>
+                            <input matInput placeholder="Username" value="{{user.username}}">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nickname</mat-label>
+                            <input matInput placeholder="Nickname" value="{{user.nickname}}">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Your title</mat-label>
+                            <input matInput placeholder="Name prefix" value="{{user.prefix}}">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <input matInput placeholder="Full name" value="@{{user.prefix}} {{user.nickname}}" disabled
+                                class="fullname">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field>
+                            <mat-label>Language</mat-label>
+                            <mat-select>
+                                <mat-option value="one" *ngFor="let language of languages">{{language}}</mat-option>
+                            </mat-select>
+                            <mat-hint>Your preference: {{user.language}}</mat-hint>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Login Password</mat-label>
+                            <input matInput placeholder="Username" type="password" value="{{user.password}}">
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+            <button mat-raised-button color="warn">Save</button>
         </mat-card-content>
     </mat-card>
 </div>
