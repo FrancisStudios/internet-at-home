@@ -30,6 +30,7 @@ import { GetUserByService } from 'src/ultils/services/authentication-service/get
 import { DuegevCreativeMenuComponent } from '../duegev-wiki/duegev-creative-menu/duegev-creative-menu.component';
 import { LabelsAndCategoriesService } from 'src/ultils/services/article-provider-service/labels-and-categories.service';
 import { DuegevArticleLikeService } from 'src/ultils/services/article-provider-service/like.service';
+import { DuegevDocumentViewerComponent } from '../duegev-wiki/_utils/duegev-document-viewer/duegev-document-viewer.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DuegevArticleLikeService } from 'src/ultils/services/article-provider-s
     AccountSettingsViewerComponent,
     DuegevBrowseComponent,
     CustomChipListComponent,
-    DuegevCreativeMenuComponent
+    DuegevCreativeMenuComponent,
+    DuegevDocumentViewerComponent
   ],
   imports: [
     BrowserModule,
