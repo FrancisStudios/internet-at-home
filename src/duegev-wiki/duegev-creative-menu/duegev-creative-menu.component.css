@@ -80,3 +80,10 @@ md-text-editor {
 .label-editor button {
     margin-left: 10px;
 }
+
+.fieldsValidationDialog>mat-card{
+    width: 40% !important;
+    height: fit-content;
+    font-family: sans-serif;
+    color: #212121;
+}

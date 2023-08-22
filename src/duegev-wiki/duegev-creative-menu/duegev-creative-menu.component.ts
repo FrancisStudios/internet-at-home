@@ -24,6 +24,7 @@ export class DuegevCreativeMenuComponent implements OnInit, OnDestroy {
   addedLabels: { text: string, color: string }[] = [];
 
   isSaveEnabled: boolean = false;
+  isFieldValidationDialogOpen: boolean = false;
 
   @Output() closeCreativeMenu = new EventEmitter<boolean>();
 
@@ -75,45 +76,54 @@ export class DuegevCreativeMenuComponent implements OnInit, OnDestroy {
 
   getMD(event: string) { this.MD_document.next(event) }
 
+  toggleFieldValidationDialog() {
+    this.isFieldValidationDialogOpen = !this.isFieldValidationDialogOpen;
+  }
+
   saveDocument() {
     let loggedInUser: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) || '');
 
     if (loggedInUser && (loggedInUser.password && loggedInUser.username)) {
       this.isSaveEnabled = true;
-      this.MD_document.subscribe(document_value => {
-        let title = (<HTMLInputElement>document.getElementById('article-title-input')).value;
-        let duegev_date = Number((<HTMLInputElement>document.getElementById('article-duegev-time-input')).value);
-        let nilDate: Date = new Date();
 
-        let currentDate = `${nilDate.getFullYear()}.${nilDate.getMonth() + 1}.${nilDate.getDate()}`;
+      let title = (<HTMLInputElement>document.getElementById('article-title-input')).value;
+      let duegev_date = Number((<HTMLInputElement>document.getElementById('article-duegev-time-input')).value);
+      let nilDate: Date = new Date();
 
-        let query: ArticleSearchQueryType = {
-          query: 'insert',
-          values: {
-            _id: this.latestDocumentID + 1,
-            article_id: `article_${this.latestDocumentID + 1}`,
-            title: title,
-            date: duegev_date,
-            author: loggedInUser.uid,
-            irl_date: currentDate,
-            labels: this.addedLabels.map(value => value.text),
-            categories: this.addedCategories.map(value => value.text),
-            document: document_value,
-            likes: []
+      let currentDate = `${nilDate.getFullYear()}.${nilDate.getMonth() + 1}.${nilDate.getDate()}`;
+
+      if ((title && title !== '') && (duegev_date && duegev_date !== 0)) {
+        console.log((title && title !== '') && (duegev_date && duegev_date !== 0))
+        this.MD_document.subscribe(document_value => {
+          console.log('subscribed')
+          let query: ArticleSearchQueryType = {
+            query: 'insert',
+            values: {
+              _id: this.latestDocumentID + 1,
+              article_id: `article_${this.latestDocumentID + 1}`,
+              title: title,
+              date: duegev_date,
+              author: loggedInUser.uid,
+              irl_date: currentDate,
+              labels: this.addedLabels.map(value => value.text),
+              categories: this.addedCategories.map(value => value.text),
+              document: document_value,
+              likes: []
+            }
           }
-        }
 
-        this.articleService.insertNewArticle(query).subscribe(queryResponse => {
-          if (queryResponse.queryValidation && queryResponse.queryValidation === 'valid') {
-            this.dialogProvider.open(DuegevDocumentSaveStatusDialog);
-            this.closeCreativeMenuWindow();
-          } else {
-            sessionStorage.setItem(SessionStorageItems.UNSAVED_ARTICLE, JSON.stringify(query));
-            this.dialogProvider.open(DuegevIncompleteSaveStatusDialog);
-            this.closeCreativeMenuWindow();
-          }
+          this.articleService.insertNewArticle(query).subscribe(queryResponse => {
+            if (queryResponse.queryValidation && queryResponse.queryValidation === 'valid') {
+              this.dialogProvider.open(DuegevDocumentSaveStatusDialog);
+              this.closeCreativeMenuWindow();
+            } else {
+              sessionStorage.setItem(SessionStorageItems.UNSAVED_ARTICLE, JSON.stringify(query));
+              this.dialogProvider.open(DuegevIncompleteSaveStatusDialog);
+              this.closeCreativeMenuWindow();
+            }
+          });
         });
-      })
+      } else this.toggleFieldValidationDialog();
     } else {
       this.dialogProvider.open(DuegevSaveDocumentRequiresLoggingInActionDialog);
       this.closeCreativeMenuWindow();
