@@ -1,0 +1,71 @@
+mat-card {
+    position: relative;
+    margin: 10px;
+}
+
+.article-chipbox-wrapper {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.game-time-display {
+    color: white;
+    font-weight: bold;
+    font-size: 10px;
+    background: gainsboro;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.md-viewer-wrapper {
+    font-family: sans-serif;
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+mat-card-actions>button,
+a {
+    margin-left: 10px;
+}
+
+.article-card {
+    margin-top: 20px;
+}
+
+#article-viewer-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.article-viewer-header {
+    background-color: black;
+    color: white;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    padding: 10px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    z-index: 999;
+}
+
+.article-viewer-header>a>button {
+    font-weight: bold;
+}
+
+.menu-name {
+    justify-self: end;
+    margin-left: auto;
+    font-size: 16pt;
+}
+
+#card-container{
+    position: relative;
+    overflow-y: scroll;
+    height: 85vh;
+}
