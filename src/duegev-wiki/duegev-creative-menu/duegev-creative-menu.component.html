@@ -13,14 +13,14 @@
     <mat-card-content>
         <div class="meta-content-holder">
             <div class="dublinator">
-                <label class="input-label">
-                    <span>Article title:</span>
-                    <input type="text" class="generic-input" placeholder="Type a title..." id="article-title-input">
-                </label>
-                <label class="input-label">
-                    <span>Dûgev time:</span>
-                    <input type="number" class="generic-input" placeholder="Közös idő..." id="article-duegev-time-input">
-                </label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Document Title</mat-label>
+                    <input matInput placeholder="Type a title..." id="article-title-input">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Dugev time</mat-label>
+                    <input matInput type="number" placeholder="Közös idő..." id="article-duegev-time-input">
+                </mat-form-field>
             </div>
             <div class="label-editor">
                 <table>
@@ -29,7 +29,8 @@
                         <td>
                             <select name="" id="creative-menu-labels" class="labels-select">
                                 <option value="no-label" class="label-selector-value" disabled>no label</option>
-                                <option *ngFor="let label of labelsValues" value="{{label}}" class="label-selector-value">{{label}}</option>
+                                <option *ngFor="let label of labelsValues" value="{{label}}"
+                                    class="label-selector-value">{{label}}</option>
                             </select>
                         </td>
                         <td><button mat-raised-button (click)="addLabel()">Add</button></td>
@@ -40,7 +41,8 @@
                         <td>
                             <select name="" id="creative-menu-categories" class="labels-select">
                                 <option value="no-category" class="label-selector-value" disabled>no category</option>
-                                <option *ngFor="let category of categoriesValues" value="{{category}}" class="label-selector-value">{{category}}</option>
+                                <option *ngFor="let category of categoriesValues" value="{{category}}"
+                                    class="label-selector-value">{{category}}</option>
                             </select>
                         </td>
                         <td><button mat-raised-button (click)="addCategory()">Add</button></td>
@@ -57,15 +59,15 @@
 <div class="fieldsValidationDialog" *ngIf="isFieldValidationDialogOpen">
     <mat-card class="example-card">
         <mat-card-header>
-          <mat-card-title>Warning!</mat-card-title>
-          <mat-card-subtitle>Data is missing!</mat-card-subtitle>
+            <mat-card-title>Warning!</mat-card-title>
+            <mat-card-subtitle>Data is missing!</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <p>Please fill out missing text!</p>
-          <p>Date and title are obligatory data to create a document. Please make sure these fields are set.</p>
+            <p>Please fill out missing text!</p>
+            <p>Date and title are obligatory data to create a document. Please make sure these fields are set.</p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button color="warn" (click)="toggleFieldValidationDialog()">CLOSE</button>
+            <button mat-button color="warn" (click)="toggleFieldValidationDialog()">CLOSE</button>
         </mat-card-actions>
-      </mat-card>
+    </mat-card>
 </div>

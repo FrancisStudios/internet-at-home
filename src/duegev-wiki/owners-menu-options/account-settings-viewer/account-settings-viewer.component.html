@@ -1,13 +1,16 @@
 <div class="account-form-wrapper">
     <mat-card>
+        <mat-card-header>
+            <mat-card-title>User Preferences</mat-card-title>
+            <mat-card-subtitle>Set your preferences</mat-card-subtitle>
+        </mat-card-header>
         <mat-card-content>
-            <h2>Account settings</h2>
             <table>
                 <tr>
                     <td>
                         <mat-form-field appearance="outline">
                             <mat-label>Login Username</mat-label>
-                            <input matInput placeholder="Username" value="{{user.username}}">
+                            <input matInput placeholder="Username" value="{{user.username}}" disabled>
                         </mat-form-field>
                     </td>
                     <td>
@@ -44,12 +47,52 @@
                     <td>
                         <mat-form-field appearance="fill">
                             <mat-label>Login Password</mat-label>
-                            <input matInput placeholder="Username" type="password" value="{{user.password}}">
+                            <input matInput placeholder="Username" type="password" value="{{user.password}}" disabled>
                         </mat-form-field>
                     </td>
                 </tr>
             </table>
             <button mat-raised-button color="warn">Save</button>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="second-card">
+        <mat-card-header>
+            <mat-card-title>Change Credentials</mat-card-title>
+            <mat-card-subtitle>Powered by UNICUM Identity Provider</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-tab-group>
+                <mat-tab label="Change Username">
+                    <div class="changer-form">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Your new username</mat-label>
+                            <input matInput placeholder="username" required id="ch-username-field">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Confirm change with your password</mat-label>
+                            <input matInput placeholder="password" type="password" required id="ch-username-password">
+                          </mat-form-field>
+                          <button mat-raised-button color="primary" (click)="changeUsernameControl()">Change</button>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Change Password">
+                    <div class="changer-form">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Old Password</mat-label>
+                            <input matInput placeholder="old password" type="password" required>
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>New Password</mat-label>
+                            <input matInput placeholder="new password" type="password" required>
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Confirm new password</mat-label>
+                            <input matInput placeholder="new password" type="password" required>
+                          </mat-form-field>
+                          <button mat-raised-button color="primary">Change</button>
+                    </div>
+                </mat-tab>
+              </mat-tab-group>
         </mat-card-content>
     </mat-card>
 </div>

@@ -18,6 +18,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -67,6 +68,7 @@ import { DuegevDocumentViewerComponent } from '../duegev-wiki/_utils/duegev-docu
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatStepperModule,
     BrowserAnimationsModule
   ],
   providers: [

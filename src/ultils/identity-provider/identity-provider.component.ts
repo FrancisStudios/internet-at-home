@@ -17,6 +17,7 @@ export class IdentityProviderComponent implements OnInit, OnDestroy {
   isVerfiying = true;
   isVerified = false;
   isFailed = false;
+  isChangeCredentials = false;
   dispatchedFrom: string = '';
   private routeSubscription: any;
 
@@ -24,6 +25,8 @@ export class IdentityProviderComponent implements OnInit, OnDestroy {
   _fieldPassword: string = '';
 
   gDispatchedFrom: string = '';
+
+  linuser: UserData | any;
 
   ngOnInit() {
     this.routeSubscription = this.route.params.subscribe(params => {
@@ -87,8 +90,8 @@ export class IdentityProviderComponent implements OnInit, OnDestroy {
   }
 
   /* If you direct */
-  redirectToSender(){
-    if(this.gDispatchedFrom ==='') return;
+  redirectToSender() {
+    if (this.gDispatchedFrom === '') return;
     switch (this.gDispatchedFrom) {
       case 'duegev-wiki':
         if (this.isVerified) this.router.navigate(['/duegev-wiki']);

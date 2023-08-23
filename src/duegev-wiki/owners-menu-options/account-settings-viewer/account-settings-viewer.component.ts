@@ -13,15 +13,22 @@ export class AccountSettingsViewerComponent {
   languages: LanguageOptions[] = [LanguageOptions.ENGLISH, LanguageOptions.DYNARI];
 
   getLanguageOptions(language_referrer: string): string {
-    switch(language_referrer){
+    switch (language_referrer) {
       case LanguageOptions.DYNARI:
         return 'Dynari';
-      
+
       case LanguageOptions.ENGLISH:
         return 'English';
 
       default:
         return 'No preference';
     }
-  } 
+  }
+
+  changeUsernameControl() {
+    let newUsername = (<HTMLInputElement>document.getElementById('ch-username-field')).value;
+    let pwConfirmation = (<HTMLInputElement>document.getElementById('ch-username-password')).value;
+
+    console.log(newUsername, pwConfirmation);
+  }
 }
