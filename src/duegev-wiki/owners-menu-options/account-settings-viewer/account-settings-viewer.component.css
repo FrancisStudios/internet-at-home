@@ -11,3 +11,17 @@ td {
 .fullname {
     font-size: 10pt !important;
 }
+
+mat-card-header {
+    margin-bottom: 10px;
+}
+
+.changer-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.second-card{
+    margin-top: 10px;
+}

@@ -15,12 +15,16 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient) { }
 
   authenticateUser(username: string, password: string): Observable<any> {
-    console.log("authentication...")
     const payload = JSON.stringify({ username: username, password: password });
-    return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/login`, payload, {headers: this.headers})
+    return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/login`, payload, { headers: this.headers });
   }
 
-  createUserSession(UserProfileData: UserData){
+  changeUserName(oldUsername: string, newUsername: string, password: string): Observable<any> {
+    const payload = JSON.stringify({ query: 'change', values: { oldUsername: oldUsername, newUsername: newUsername, password: password } });
+    return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/login`, payload, { headers: this.headers });
+  }
+
+  createUserSession(UserProfileData: UserData) {
     sessionStorage.setItem(SessionStorageItems.USER, JSON.stringify(UserProfileData));
   }
 

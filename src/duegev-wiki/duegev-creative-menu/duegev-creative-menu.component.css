@@ -40,10 +40,8 @@ input {
     margin-right: 6px;
 }
 
-input {
-    border-radius: 5px;
-    padding: 4px 10px;
-    margin-right: 20px;
+mat-form-field {
+    margin-right: 10px;
 }
 
 .meta-content-holder {
@@ -55,11 +53,7 @@ input {
     margin-bottom: 5px;
 }
 
-md-text-editor {
-    
-}
-
-.label-editor{
+.label-editor {
     margin-top: 15px;
     margin-bottom: 8px;
     font-family: sans-serif;
@@ -81,7 +75,7 @@ md-text-editor {
     margin-left: 10px;
 }
 
-.fieldsValidationDialog>mat-card{
+.fieldsValidationDialog>mat-card {
     width: 40% !important;
     height: fit-content;
     font-family: sans-serif;
