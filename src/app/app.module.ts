@@ -35,6 +35,7 @@ import { DuegevCreativeMenuComponent } from '../duegev-wiki/duegev-creative-menu
 import { LabelsAndCategoriesService } from 'src/ultils/services/article-provider-service/labels-and-categories.service';
 import { DuegevArticleLikeService } from 'src/ultils/services/article-provider-service/like.service';
 import { DuegevDocumentViewerComponent } from '../duegev-wiki/_utils/duegev-document-viewer/duegev-document-viewer.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,9 @@ import { DuegevDocumentViewerComponent } from '../duegev-wiki/_utils/duegev-docu
     MatInputModule,
     MatSelectModule,
     MatStepperModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     AuthenticationService,
