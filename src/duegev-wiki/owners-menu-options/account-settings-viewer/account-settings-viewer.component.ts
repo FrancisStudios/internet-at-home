@@ -17,7 +17,7 @@ export class AccountSettingsViewerComponent implements OnDestroy {
   constructor(private UNICUMIdentityProvider: AuthenticationService) { }
 
   ngOnDestroy(): void {
-    this.changeUsernameSubscription.unsubscribe();
+    if (this.changeUsernameSubscription) this.changeUsernameSubscription.unsubscribe();
   }
 
   getLanguageOptions(language_referrer: string): string {
@@ -46,7 +46,7 @@ export class AccountSettingsViewerComponent implements OnDestroy {
         }
       });
     } else {
-      /* PLEASE FILL ALL FIELDS */ 
+      /* PLEASE FILL ALL FIELDS */
     }
   }
 }
