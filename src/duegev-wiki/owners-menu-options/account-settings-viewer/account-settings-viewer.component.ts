@@ -41,12 +41,20 @@ export class AccountSettingsViewerComponent implements OnDestroy {
       this.changeUsernameSubscription = this.UNICUMIdentityProvider.changeUserName(this.user.username, newUsername, pwConfirmation).subscribe(response => {
         if (response.queryValidation === 'valid') {
           /* SUCCESSFUL UNAME CHANGE */
+          let LocalUserObject : UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) || '');
+          LocalUserObject.username = newUsername;
+          sessionStorage.setItem(SessionStorageItems.USER, JSON.stringify(LocalUserObject));
+          window.alert('Your username successfully changed. Use your new username at your next login!');
+          (<HTMLInputElement>document.getElementById('ch-username-field')).value = '';
+          (<HTMLInputElement>document.getElementById('ch-username-password')).value = '';
         } else {
           /* UNAME CHANGE FAILED */
+          window.alert('Username change failed!');
         }
       });
     } else {
       /* PLEASE FILL ALL FIELDS */
+      window.alert('Please fill all fields before submitting!');
     }
   }
 }
