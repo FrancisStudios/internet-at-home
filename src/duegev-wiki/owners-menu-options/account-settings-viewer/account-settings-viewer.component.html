@@ -16,7 +16,7 @@
                     <td>
                         <mat-form-field appearance="outline">
                             <mat-label>Nickname</mat-label>
-                            <input matInput placeholder="Nickname" value="{{user.nickname}}">
+                            <input matInput placeholder="Nickname" value="{{user.nickname}}" id="ch-usr-nickname-control">
                         </mat-form-field>
                     </td>
                 </tr>
@@ -24,7 +24,7 @@
                     <td>
                         <mat-form-field appearance="fill">
                             <mat-label>Your title</mat-label>
-                            <input matInput placeholder="Name prefix" value="{{user.prefix}}">
+                            <input matInput placeholder="Name prefix" value="{{user.prefix}}" id="ch-usr-title-control">
                         </mat-form-field>
                     </td>
                     <td>
@@ -38,8 +38,8 @@
                     <td>
                         <mat-form-field>
                             <mat-label>Language</mat-label>
-                            <mat-select>
-                                <mat-option value="one" *ngFor="let language of languages">{{language}}</mat-option>
+                            <mat-select id="ch-usr-language-control" (selectionChange)="setLanguageValue($event.value)">
+                                <mat-option value="{{language}}" *ngFor="let language of languages">{{language}}</mat-option>
                             </mat-select>
                             <mat-hint>Your preference: {{user.language}}</mat-hint>
                         </mat-form-field>
@@ -47,12 +47,12 @@
                     <td>
                         <mat-form-field appearance="fill">
                             <mat-label>Login Password</mat-label>
-                            <input matInput placeholder="Username" type="password" value="{{user.password}}" disabled>
+                            <input matInput placeholder="Password" type="password" value="{{user.password}}" disabled>
                         </mat-form-field>
                     </td>
                 </tr>
             </table>
-            <button mat-raised-button color="warn">Save</button>
+            <button mat-raised-button color="warn" (click)="userPreferencesControl()">Save</button>
         </mat-card-content>
     </mat-card>
     <mat-card class="second-card">

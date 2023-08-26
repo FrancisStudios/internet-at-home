@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { MatSelect } from '@angular/material/select';
 import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
 import { UserData } from 'src/data-types/authentication/user-data';
 import { LanguageOptions } from 'src/data-types/identity-provider/language-options';
@@ -13,6 +14,7 @@ export class AccountSettingsViewerComponent implements OnDestroy {
   user: UserData = <UserData>JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) || '');
   languages: LanguageOptions[] = [LanguageOptions.ENGLISH, LanguageOptions.DYNARI];
   changeUsernameSubscription: any;
+  selectedLanguage: string = '';
 
   constructor(private UNICUMIdentityProvider: AuthenticationService) { }
 
@@ -33,8 +35,33 @@ export class AccountSettingsViewerComponent implements OnDestroy {
     }
   }
 
-  userPreferencesControl() {
+  setLanguageValue(language: LanguageOptions) {
+    this.selectedLanguage = language;
+  }
 
+  userPreferencesControl() {
+    let nickname = (<HTMLInputElement>document.getElementById('ch-usr-nickname-control')).value;
+    let title = (<HTMLInputElement>document.getElementById('ch-usr-title-control')).value;
+    let language = this.selectedLanguage || 'default'
+
+    let user: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) || '');
+
+    if (nickname) user.nickname = nickname;
+    if (title) { user.prefix = title; } else { user.prefix = ''; }
+    if (language !== 'default') user.language = language;
+
+    this.UNICUMIdentityProvider.changeUserPreferences(user).subscribe(response => {
+      switch (response.queryValidation) {
+        case 'valid':
+          sessionStorage.setItem(SessionStorageItems.USER, JSON.stringify(user));
+          window.alert('Saved successfully!');
+          break;
+
+        default:
+          window.alert('Something went wrong. Your modifications are not saved!');
+          break;
+      }
+    });
   }
 
   changeUsernameControl() {
