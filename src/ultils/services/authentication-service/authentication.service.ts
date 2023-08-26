@@ -24,6 +24,11 @@ export class AuthenticationService {
     return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/login`, payload, { headers: this.headers });
   }
 
+  changePassword(username: string, oldPassword: string, newPassword: string): Observable<any> {
+    const payload = JSON.stringify({ query: 'change-password', values: { username: username, oldPassword: oldPassword, newPassword: newPassword } });
+    return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/login`, payload, { headers: this.headers });
+  }
+
   createUserSession(UserProfileData: UserData) {
     sessionStorage.setItem(SessionStorageItems.USER, JSON.stringify(UserProfileData));
   }
@@ -35,3 +40,4 @@ export class AuthenticationService {
   }
 }
 
+export type AuthenticationQueryValidationType = { queryValidation: 'valid' | 'invalid' };

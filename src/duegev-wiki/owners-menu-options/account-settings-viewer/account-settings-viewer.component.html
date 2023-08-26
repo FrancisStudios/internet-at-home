@@ -70,7 +70,7 @@
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Confirm change with your password</mat-label>
-                            <input matInput placeholder="password" type="password" required id="ch-username-password">
+                            <input matInput placeholder="password" type="password" required id="ch-username-password" (keydown.enter)="changeUsernameControl()">
                         </mat-form-field>
                         <button mat-raised-button color="primary" (click)="changeUsernameControl()">Change</button>
                     </div>
@@ -79,17 +79,17 @@
                     <div class="changer-form">
                         <mat-form-field appearance="outline">
                             <mat-label>Old Password</mat-label>
-                            <input matInput placeholder="old password" type="password" required>
+                            <input matInput placeholder="old password" type="password" required id="ch-password-old-control">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>New Password</mat-label>
-                            <input matInput placeholder="new password" type="password" required>
+                            <input matInput placeholder="new password" type="password" required id="ch-password-new-1-control">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Confirm new password</mat-label>
-                            <input matInput placeholder="new password" type="password" required>
+                            <input matInput placeholder="new password" type="password" required id="ch-password-new-2-control" (keydown.enter)="changePasswordControl()">
                         </mat-form-field>
-                        <button mat-raised-button color="primary">Change</button>
+                        <button mat-raised-button color="primary" (click)="changePasswordControl()">Change</button>
                     </div>
                 </mat-tab>
             </mat-tab-group>
