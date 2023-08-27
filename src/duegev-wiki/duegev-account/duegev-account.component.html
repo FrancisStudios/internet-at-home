@@ -1,6 +1,6 @@
 <div id="account-view-wrapper">
     <nav class="duegev-title">
-        <button mat-raised-button color="primary" class="add-year">+ New year</button>
+        <button mat-raised-button color="primary" class="add-year" (click)="newYearControl()">+ New year</button>
         <button mat-raised-button color="warn" class="create-button" (click)="enableCreativeMenu()">Create</button>
         <span class="title"><button mat-raised-button disabled>welcome {{loggedInUser.nickname}}</button></span>
     </nav>

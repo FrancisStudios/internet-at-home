@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
+import { UserData } from 'src/data-types/authentication/user-data';
 import { WebAPIConfig } from 'src/data-types/authentication/web-api.config';
 
 @Injectable({
@@ -12,9 +14,20 @@ export class DuegevTimeProvider {
     constructor(private httpClient: HttpClient) { }
 
     getTime(): Observable<any> {
-        const queryObject = { query: 'recent' };
+        const queryObject: TimeSetSearchQueryType = { query: 'get' };
         const payload = JSON.stringify(queryObject);
-        return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/duegev/time`, payload, { headers: this.headers });
+        return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/duegev-time`, payload, { headers: this.headers });
+    }
+
+    setTime(): Observable<any> {
+        let nilDate: Date = new Date();
+        let activeUser: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) || '');
+        let currentDate = `${nilDate.getFullYear()}.${nilDate.getMonth() + 1}.${nilDate.getDate()}`;
+        
+        const queryObject: TimeSetSearchQueryType = { query: 'set', values: { uid: activeUser.uid, password: activeUser.password, date: currentDate } };
+        const payload = JSON.stringify(queryObject);
+
+        return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/duegev-time`, payload, { headers: this.headers });
     }
 
     getTimeByCommonTime(commonTime: number): string {
@@ -25,5 +38,14 @@ export class DuegevTimeProvider {
 
 export type ArticleSearchQueryType = {
     query: string
+}
+
+export type TimeSetSearchQueryType = {
+    query: 'get' | 'set',
+    values?: {
+        uid: number,
+        password: string,
+        date: string,
+    }
 }
 
