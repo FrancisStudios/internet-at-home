@@ -1,22 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
 import { UserData } from 'src/data-types/authentication/user-data';
+import { DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/duegev-time-provider.service';
 
 @Component({
   selector: 'duegev-account',
   templateUrl: './duegev-account.component.html',
   styleUrls: ['./duegev-account.component.css'],
 })
-export class DuegevAccountComponent implements OnInit {
+export class DuegevAccountComponent implements OnInit, OnDestroy {
   activeMenu: MenuItems = MenuItems.ACCOUNT;
   MenuItems = MenuItems;
   loggedInUser: UserData | any;
   isCreativeMenuEnabled: boolean = false;
 
-  constructor(){}
+  timeProviderSubscription: any;
+
+  constructor(private duegevTimeProvider: DuegevTimeProvider) { }
 
   ngOnInit(): void {
     this.loggedInUser = this.getLoggedInUser;
+  }
+
+  ngOnDestroy(): void {
+    this.timeProviderSubscription.unsubscribe();
+  }
+
+  newYearControl() {
+    this.timeProviderSubscription = this.duegevTimeProvider.setTime().subscribe(response => {
+      if (response.queryValidation === 'valid') {
+        window.alert('New date set!');
+      } else window.alert('Failed to set date!');
+    });
   }
 
   menuClicked(_mItem: MenuItems) {
@@ -36,12 +51,12 @@ export class DuegevAccountComponent implements OnInit {
     }
   }
 
-  get getLoggedInUser () {
+  get getLoggedInUser() {
     const linus = sessionStorage.getItem(SessionStorageItems.USER);
-    if(linus) return JSON.parse(linus);
+    if (linus) return JSON.parse(linus);
   }
 
-  enableCreativeMenu(){
+  enableCreativeMenu() {
     this.isCreativeMenuEnabled = !this.isCreativeMenuEnabled;
   }
 }

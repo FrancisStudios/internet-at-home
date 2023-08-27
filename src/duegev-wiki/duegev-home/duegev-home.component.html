@@ -4,21 +4,22 @@
             <img src="../../assets/icones/book.png" class="wikicon">
             <span class="name">DÛGEV WIKI</span>
         </div>
-    
+
         <div class="date-display">
             <span class="date">
-                K.i. 2441 | Cl.u. 399 | Ersi idő 531 | Nordi idő 550 | Sz.I 938
+                {{ getCurrentTimeStamp }}
             </span>
         </div>
-    
+
         <div class="menu-items">
             <a class="menu-item" (click)="changeViewPort(VIEWPORTS.HOMEVIEW)">Home ▷</a>
             <a class="menu-item" (click)="changeViewPort(VIEWPORTS.BROWSEVIEW)">Browse ▷</a>
-            <a *ngIf="!LoggedInUser.username"class="menu-item" href="/utils/identity-provider/duegev-wiki">Login ▷</a>
-            <a *ngIf="LoggedInUser.username!" class="menu-item" (click)="changeViewPort(VIEWPORTS.ACCOUNTVIEW)">ACCOUNT ▷</a>
+            <a *ngIf="!LoggedInUser.username" class="menu-item" href="/utils/identity-provider/duegev-wiki">Login ▷</a>
+            <a *ngIf="LoggedInUser.username!" class="menu-item" (click)="changeViewPort(VIEWPORTS.ACCOUNTVIEW)">ACCOUNT
+                ▷</a>
         </div>
     </nav>
-    
+
     <div id="viewcontainer">
         <duegev-account *ngIf="isAccountView"></duegev-account>
         <duegev-browse *ngIf="isBrowseView"></duegev-browse>
