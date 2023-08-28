@@ -1,0 +1,42 @@
+mat-card#card-content-panel {
+    height: 100%;
+}
+
+mat-card-content#card-content-section {
+    overflow-y: scroll;
+}
+
+.highlight-card {
+    width: 47%;
+    font-family: sans-serif;
+}
+
+#highlight-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.cat-title {
+    text-transform: lowercase;
+    color: #212121;
+}
+
+.likes-indicator {
+    justify-self: flex-end;
+    margin-left: auto;
+    margin-right: 20px;
+    user-select: none;
+}
+
+.map-card-section {
+    margin-top: 20px;
+}
+
+.map-card-header, .new-map-timestamp {
+    margin-bottom: 10px;
+}
+
+.map-card {
+    margin-bottom: 40px;
+}
