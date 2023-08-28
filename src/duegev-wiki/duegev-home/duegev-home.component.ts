@@ -33,7 +33,6 @@ export class DuegevHomeComponent implements OnInit, OnDestroy {
   }
 
   get getCurrentTimeStamp(): string {
-    console.log(this.currentTime);
     return this.duegevTimeProvider.getTimeByCommonTime(this.currentTime);
   }
 
@@ -47,6 +46,10 @@ export class DuegevHomeComponent implements OnInit, OnDestroy {
 
   get isBrowseView(): boolean {
     return (this.viewPort === VIEWPORTS.BROWSEVIEW);
+  }
+
+  get isHomeView(): boolean {
+    return (this.viewPort === VIEWPORTS.HOMEVIEW);
   }
 
 }

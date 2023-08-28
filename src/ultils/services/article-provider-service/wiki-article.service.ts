@@ -26,6 +26,11 @@ export class WikiArticleService {
         return this.getArticles({ query: 'get-latest' });
     }
 
+    
+    getMostLiked(): Observable<any> {
+        return this.getArticles({ query: 'get-most-liked' });
+    }
+
     insertNewArticle(searchquery: ArticleSearchQueryType): Observable<any> {
         return this.getArticles(searchquery);
     }

@@ -1,0 +1,51 @@
+<mat-card id="card-content-panel">
+    <mat-card-content id="card-content-section">
+
+        <div id="highlight-section">
+            <!-- LATEST ARTICLE | MOST LIKED ARTICLE -->
+            <div class="highlight-card" *ngFor="let article of articles; let i = index">
+                <h1 class="cat-title">{{ i == 0 ? 'Most Recent' : 'Most Liked'}}</h1>
+                <mat-card class="article-card">
+                    <mat-card-header>
+                        <mat-card-title>{{article.title}}</mat-card-title>
+                        <mat-card-subtitle><span class="game-time-display">K.i.
+                                {{article.date}}</span></mat-card-subtitle>
+                        <mat-card-subtitle>@{{ getNicknameByUID(article.author) }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="md-viewer-wrapper">
+                            <md-article-viewer [articleContent]="article.document"></md-article-viewer>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <a mat-stroked-button color="primary" href="/article-viewer/{{article.article_id}}">
+                            READ MORE
+                        </a>
+                        <div *ngIf="i > 0" matBadge="{{ article.number_of_likes }}" matBadgeOverlap="false"
+                            class="likes-indicator">
+                            Likes
+                        </div>
+                        <mat-card-subtitle *ngIf="i == 0"
+                            class="likes-indicator">{{article.irl_date}}</mat-card-subtitle>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+
+        <div class="map-card-section">
+            <mat-card class="map-card">
+                <mat-card-header class="map-card-header">
+                    <mat-card-title>DÛGEV WORLD MAP</mat-card-title>
+                    <mat-card-subtitle class="new-map-timestamp">{{getTimeByCT(2441)}}</mat-card-subtitle>
+                </mat-card-header>
+                <img mat-card-image src="../../../assets/duegev/map/duegev-latest"
+                    alt="Photo of a Shiba Inu">
+                <mat-card-content>
+                    <p>
+                        New Duegev map with the new borders of X country, and ...
+                    </p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-card-content>
+</mat-card>

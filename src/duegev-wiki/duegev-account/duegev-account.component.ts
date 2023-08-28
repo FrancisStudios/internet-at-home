@@ -23,7 +23,7 @@ export class DuegevAccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.timeProviderSubscription.unsubscribe();
+    if (this.timeProviderSubscription) this.timeProviderSubscription.unsubscribe();
   }
 
   newYearControl() {

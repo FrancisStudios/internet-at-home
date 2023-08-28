@@ -36,6 +36,7 @@ import { LabelsAndCategoriesService } from 'src/ultils/services/article-provider
 import { DuegevArticleLikeService } from 'src/ultils/services/article-provider-service/like.service';
 import { DuegevDocumentViewerComponent } from '../duegev-wiki/_utils/duegev-document-viewer/duegev-document-viewer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DuegevHomePanelComponent } from '../duegev-wiki/owners-menu-options/duegev-home-panel/duegev-home-panel.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DuegevBrowseComponent,
     CustomChipListComponent,
     DuegevCreativeMenuComponent,
-    DuegevDocumentViewerComponent
+    DuegevDocumentViewerComponent,
+    DuegevHomePanelComponent
   ],
   imports: [
     BrowserModule,
