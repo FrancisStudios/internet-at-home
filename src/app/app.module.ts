@@ -37,6 +37,7 @@ import { DuegevArticleLikeService } from 'src/ultils/services/article-provider-s
 import { DuegevDocumentViewerComponent } from '../duegev-wiki/_utils/duegev-document-viewer/duegev-document-viewer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DuegevHomePanelComponent } from '../duegev-wiki/owners-menu-options/duegev-home-panel/duegev-home-panel.component';
+import { DuegevSearchEngine } from 'src/ultils/services/duegev-wiki-proprietary/duegev-search-engine.service';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { DuegevHomePanelComponent } from '../duegev-wiki/owners-menu-options/due
     LabelsAndCategoriesService,
     GetUserByService,
     DuegevArticleLikeService,
+    DuegevSearchEngine,
     MatDialog
   ],
   bootstrap: [CrossroadComponent]
