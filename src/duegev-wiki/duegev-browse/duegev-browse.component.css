@@ -1,13 +1,13 @@
-mat-card{
+mat-card {
     margin: 10px;
 }
 
-#articles-browser{
+#articles-browser {
     height: calc(100% - 80px);
     background: rgb(235, 235, 235);
 }
 
-#article-search-header{
+#article-search-header {
     background-color: white;
 }
 
@@ -18,7 +18,7 @@ mat-card{
     gap: 8px;
 }
 
-.game-time-display{
+.game-time-display {
     color: white;
     font-weight: bold;
     font-size: 10px;
@@ -27,7 +27,7 @@ mat-card{
     border-radius: 10px;
 }
 
-.md-viewer-wrapper{
+.md-viewer-wrapper {
     font-family: sans-serif;
 }
 
@@ -40,20 +40,34 @@ mat-card-actions {
     justify-content: flex-end;
 }
 
-mat-card-actions>button, a {
+mat-card-actions>button,
+a {
     margin-left: 10px;
 }
 
-.article-card{
+.article-card {
     margin-top: 20px;
 }
 
-#articles-search-bar{
+#articles-search-bar {
     padding: 10px;
     font-size: 15px;
+    width: 100%;
     font-family: sans-serif;
-    margin-bottom: 20px;
-    width: 70%;
     border-radius: 50px;
     margin-right: 20px;
+}
+
+.input-holder {
+    width: 70%;
+}
+
+.input-holder #results-shower {
+    margin-top: 3px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+}
+
+#search-button {
+    margin-left: 40px;
 }

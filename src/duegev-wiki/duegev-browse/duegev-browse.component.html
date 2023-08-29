@@ -1,7 +1,10 @@
 <mat-card id="articles-browser">
     <mat-card-header id="article-search-header">
-        <input type="text" placeholder="Search in all articles..." id="articles-search-bar">
-        <button mat-raised-button color="primary">SEARCH</button>
+        <div class="input-holder">
+            <input type="text" placeholder="Search in all articles..." (keydown.enter)="search()" id="articles-search-bar">
+            <mat-card-subtitle id="results-shower">Showing {{numberOfSearchResults}} results...</mat-card-subtitle>
+        </div>
+        <button mat-raised-button color="primary" id="search-button" (click)="search()">SEARCH</button>
     </mat-card-header>
     <div id="search-params-holder">
     </div>
