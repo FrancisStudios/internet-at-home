@@ -62,6 +62,8 @@ export class DuegevSearchEngine {
                     documentSearch = token.trim();
                 }
             });
+        } else {
+            documentSearch = tokens[0].trim();
         }
 
         const values: DuegevSearchQueryType = {
@@ -79,7 +81,7 @@ export class DuegevSearchEngine {
 
     search(browseQuery: string): Observable<any> {
         const queryObject: DuegevSearchQueryType = this.searchEngine(browseQuery); const payload = JSON.stringify(queryObject);
-        return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/duegev-time`, payload, { headers: this.headers });
+        return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/duegev-search`, payload, { headers: this.headers });
     }
 }
 

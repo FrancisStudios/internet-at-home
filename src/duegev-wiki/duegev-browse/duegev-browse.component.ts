@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
@@ -8,6 +8,7 @@ import { CustomChipType } from 'src/ultils/custom-ui/custom-chip-list/custom-chi
 import { DuegevArticleLikeService } from 'src/ultils/services/article-provider-service/like.service';
 import { ArticleSearchQueryType, WikiArticleService } from 'src/ultils/services/article-provider-service/wiki-article.service';
 import { GetUserByService } from 'src/ultils/services/authentication-service/get-user-by.service';
+import { DuegevSearchEngine } from 'src/ultils/services/duegev-wiki-proprietary/duegev-search-engine.service';
 import { DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/duegev-time-provider.service';
 
 @Component({
@@ -15,26 +16,34 @@ import { DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/
   templateUrl: './duegev-browse.component.html',
   styleUrls: ['./duegev-browse.component.css']
 })
-export class DuegevBrowseComponent implements OnInit {
+export class DuegevBrowseComponent implements OnInit, OnDestroy {
   searchquery: ArticleSearchQueryType = { query: '*' };
   articles: any | WikiArticle[] = '';
   UIDDictionary: any[] = [];
+
+  numberOfSearchResults: number = 0;
+
+  private articleServiceGetArticlesSubscription: any;
+  private getUserByServiceGetAllUsersSubscription: any;
+  private duegevSearchEngineSubscription: any;
 
   constructor(
     private articleService: WikiArticleService,
     private timeProvider: DuegevTimeProvider,
     private getUserByService: GetUserByService,
     private dialogProvider: MatDialog,
-    private likeService: DuegevArticleLikeService) { }
+    private likeService: DuegevArticleLikeService,
+    private duegevSearchEngine: DuegevSearchEngine) { }
 
   ngOnInit(): void {
-    this.articleService.getArticles(this.searchquery).subscribe(response => {
+    this.articleServiceGetArticlesSubscription = this.articleService.getArticles(this.searchquery).subscribe(response => {
       if (response.queryValidation && response.queryValidation === 'valid') {
         this.articles = response.articles;
+        this.numberOfSearchResults = response.articles.length;
       }
     });
 
-    this.getUserByService.getAllUsers().subscribe(usersList => {
+    this.getUserByServiceGetAllUsersSubscription = this.getUserByService.getAllUsers().subscribe(usersList => {
       if (usersList.queryValidation && usersList.queryValidation === 'valid') {
         let _uList: UserData[] = JSON.parse(JSON.stringify(usersList.user));
         _uList.forEach(user => {
@@ -46,6 +55,12 @@ export class DuegevBrowseComponent implements OnInit {
         });
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.articleServiceGetArticlesSubscription) this.articleServiceGetArticlesSubscription.unsubscribe();
+    if (this.getUserByServiceGetAllUsersSubscription) this.getUserByServiceGetAllUsersSubscription.unsubscribe();
+    if (this.duegevSearchEngineSubscription) this.duegevSearchEngineSubscription.unsubscribe();
   }
 
   getTimeByCT(commonTime: number | string): string {
@@ -94,18 +109,38 @@ export class DuegevBrowseComponent implements OnInit {
 
         if (likesArray.includes(linuser.uid)) {
           /* REMOVE ONE LIKE */
-          this.likeService.removeLike(requestObject).subscribe(res=>{
+          this.likeService.removeLike(requestObject).subscribe(res => {
             this.ngOnInit();
           });
         } else {
           /* ADD ONE LIKE */
-          this.likeService.giveLike(requestObject).subscribe(res=>{
+          this.likeService.giveLike(requestObject).subscribe(res => {
             this.ngOnInit();
           });
         }
 
       } else this.dialogProvider.open(LoginIsNeededDialog);
     } else this.dialogProvider.open(LoginIsNeededDialog);
+  }
+
+  search() {
+    let searchExpression: string = (<HTMLInputElement>document.getElementById('articles-search-bar')).value;
+
+    if (searchExpression && searchExpression !== '') {
+      this.duegevSearchEngineSubscription = this.duegevSearchEngine.search(searchExpression).subscribe(response => {
+        if (response.queryValidation === 'valid') {
+          this.articles = response.values;
+          this.numberOfSearchResults = response.values.length;
+        }
+      });
+    } else {
+      /* SEARCH FOR ALL DOCUMENTS */
+      this.articleServiceGetArticlesSubscription = this.articleService.getArticles(this.searchquery).subscribe(response => {
+        if (response.queryValidation && response.queryValidation === 'valid') {
+          this.ngOnInit();
+        }
+      });
+    }
   }
 }
 

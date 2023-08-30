@@ -38,6 +38,9 @@ a {
 }
 
 #article-viewer-wrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -64,8 +67,9 @@ a {
     font-size: 16pt;
 }
 
-#card-container{
+#card-container {
     position: relative;
+    height: 100%;
+    width: 100%;
     overflow-y: scroll;
-    height: 85vh;
 }
