@@ -1,0 +1,21 @@
+<mat-accordion *ngFor="let article of allArticles">
+    <mat-expansion-panel hideToggle class="article-ri-card">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{ article.title }}
+            </mat-panel-title>
+            <mat-panel-description>
+                <div class="info-items-wrapper">
+                    <div class="text-wrapper">
+                        {{ article.irl_date }}
+                    </div>
+                    <div class="action-buttons-wrapper">
+                        <button mat-raised-button color="primary">Edit</button>
+                        <button mat-raised-button color="warn">Delete</button>
+                    </div>
+                </div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <md-article-viewer [articleContent]="article.document"></md-article-viewer>
+    </mat-expansion-panel>
+</mat-accordion>

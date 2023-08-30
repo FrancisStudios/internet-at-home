@@ -137,8 +137,7 @@ export class DuegevBrowseComponent implements OnInit, OnDestroy {
       /* SEARCH FOR ALL DOCUMENTS */
       this.articleServiceGetArticlesSubscription = this.articleService.getArticles(this.searchquery).subscribe(response => {
         if (response.queryValidation && response.queryValidation === 'valid') {
-          this.articles = response.articles;
-          this.numberOfSearchResults = response.values.length;
+          this.ngOnInit();
         }
       });
     }

@@ -1,0 +1,23 @@
+.article-ri-card {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.info-items-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.text-wrapper {
+    width: 60%;
+}
+
+.action-buttons-wrapper {
+    align-self: flex-end;
+    margin-left: auto;
+    justify-content: center;
+    display: flex;
+    gap: 5px;
+}

@@ -18,7 +18,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatStepperModule } from '@angular/material/stepper'
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -38,6 +39,7 @@ import { DuegevDocumentViewerComponent } from '../duegev-wiki/_utils/duegev-docu
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DuegevHomePanelComponent } from '../duegev-wiki/owners-menu-options/duegev-home-panel/duegev-home-panel.component';
 import { DuegevSearchEngine } from 'src/ultils/services/duegev-wiki-proprietary/duegev-search-engine.service';
+import { DuegevArticleRecyclerItemComponent } from '../ultils/custom-ui/duegev-article-recycler-item/duegev-article-recycler-item.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,8 @@ import { DuegevSearchEngine } from 'src/ultils/services/duegev-wiki-proprietary/
     CustomChipListComponent,
     DuegevCreativeMenuComponent,
     DuegevDocumentViewerComponent,
-    DuegevHomePanelComponent
+    DuegevHomePanelComponent,
+    DuegevArticleRecyclerItemComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +79,7 @@ import { DuegevSearchEngine } from 'src/ultils/services/duegev-wiki-proprietary/
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    MatExpansionModule
   ],
   providers: [
     AuthenticationService,
