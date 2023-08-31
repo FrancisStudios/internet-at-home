@@ -1,3 +1,14 @@
+<mat-card>
+    <mat-card-content>
+        <mat-form-field appearance="fill" class="search-area">
+            <mat-label>Use search query to filter results</mat-label>
+            <input matInput placeholder="Search" (keydown.enter)="search()"
+                id="{{isMyArticles ? 'my_articles_search' : 'all_articles_search'}}">
+            <mat-hint>{{ numberOfResults }} results found</mat-hint>
+        </mat-form-field>
+    </mat-card-content>
+</mat-card>
+
 <mat-accordion *ngFor="let article of allArticles">
     <mat-expansion-panel hideToggle class="article-ri-card">
         <mat-expansion-panel-header>
@@ -9,9 +20,17 @@
                     <div class="text-wrapper">
                         {{ article.irl_date }}
                     </div>
-                    <div class="action-buttons-wrapper">
+                    <div *ngIf="isMyArticles" class="action-buttons-wrapper">
                         <button mat-raised-button color="primary">Edit</button>
                         <button mat-raised-button color="warn">Delete</button>
+                    </div>
+                    <div *ngIf="!isMyArticles" class="chip-box">
+                        <mat-chip-listbox>
+                            <mat-chip-option disabled>@{{ getNicknameByUID(article.author) }}</mat-chip-option>
+                        </mat-chip-listbox>
+                        <mat-chip-listbox>
+                            <mat-chip-option disabled>K.i. {{ article.date }}</mat-chip-option>
+                        </mat-chip-listbox>
                     </div>
                 </div>
             </mat-panel-description>

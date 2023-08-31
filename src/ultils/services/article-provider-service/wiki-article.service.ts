@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
+import { UserData } from 'src/data-types/authentication/user-data';
 import { WebAPIConfig } from 'src/data-types/authentication/web-api.config';
 import { WikiArticle } from 'src/data-types/duegev-wiki/article.type';
 
@@ -34,10 +36,16 @@ export class WikiArticleService {
     insertNewArticle(searchquery: ArticleSearchQueryType): Observable<any> {
         return this.getArticles(searchquery);
     }
+
+    getByUID(): Observable<any> {
+        let user: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) || '')
+        let UID = user.uid;
+        return this.getArticles({ query: 'get-by-uid', values: UID});
+    }
 }
 
 export type ArticleSearchQueryType = {
     query: string,
-    values?: WikiArticle | string
+    values?: WikiArticle | string | number
 }
 
