@@ -1,8 +1,8 @@
 <mat-tab-group>
     <mat-tab label="My Articles">
-        <duegev-article-recycler-item></duegev-article-recycler-item>
+        <duegev-article-recycler-item [isMyArticles]="true"></duegev-article-recycler-item>
     </mat-tab>
     <mat-tab label="All Articles">
-        blin
+        <duegev-article-recycler-item [isMyArticles]="false"></duegev-article-recycler-item>
     </mat-tab>
 </mat-tab-group>

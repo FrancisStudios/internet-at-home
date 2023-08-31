@@ -21,3 +21,15 @@
     display: flex;
     gap: 5px;
 }
+
+.search-area {
+    width: 70%;
+}
+
+.chip-box {
+    align-self: flex-end;
+    margin-left: auto;
+    gap: 5px;
+    display: flex;
+    flex-direction: row;
+}
