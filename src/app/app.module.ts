@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -40,6 +41,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DuegevHomePanelComponent } from '../duegev-wiki/owners-menu-options/duegev-home-panel/duegev-home-panel.component';
 import { DuegevSearchEngine } from 'src/ultils/services/duegev-wiki-proprietary/duegev-search-engine.service';
 import { DuegevArticleRecyclerItemComponent } from '../ultils/custom-ui/duegev-article-recycler-item/duegev-article-recycler-item.component';
+import { ArticleEditorComponent } from '../duegev-wiki/_utils/article-editor/article-editor.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { DuegevArticleRecyclerItemComponent } from '../ultils/custom-ui/duegev-a
     DuegevCreativeMenuComponent,
     DuegevDocumentViewerComponent,
     DuegevHomePanelComponent,
-    DuegevArticleRecyclerItemComponent
+    DuegevArticleRecyclerItemComponent,
+    ArticleEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +73,7 @@ import { DuegevArticleRecyclerItemComponent } from '../ultils/custom-ui/duegev-a
     MatChipsModule,
     MatBadgeModule,
     MatFormFieldModule,
+    MatAutocompleteModule,
     HttpClientModule,
     MatDialogModule,
     MatFormFieldModule,

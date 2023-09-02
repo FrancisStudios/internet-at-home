@@ -1,0 +1,93 @@
+<mat-card id="main-card">
+    <mat-card-header>
+        <mat-card-title>DÛGEV ARTICLE EDITOR</mat-card-title>
+        <mat-card-subtitle>by Francis Studios</mat-card-subtitle>
+
+        <mat-card-actions id="top-card-actions">
+            <button mat-raised-button color="warn">ABANDON</button>
+            <button mat-raised-button color="primary">SAVE</button>
+        </mat-card-actions>
+
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content id="card-content-main">
+        <div class="metadata-panel">
+            <mat-form-field appearance="outline" id="article-title-form">
+                <mat-label>Article title</mat-label>
+                <input matInput placeholder="Title...">
+            </mat-form-field>
+            <div class="metadata-holder">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dûgev time (K.i.)</mat-label>
+                    <input matInput placeholder="Date.." type="number">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Author</mat-label>
+                    <input matInput placeholder="Author" disabled value="Jehem">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Creation Date</mat-label>
+                    <input matInput placeholder="Author" disabled value="2023.09.02">
+                </mat-form-field>
+            </div>
+            <div class="sorters-holder">
+
+                <mat-form-field class="example-chip-list">
+                    <mat-label>Categories...</mat-label>
+                    <mat-chip-grid #categoriesGrid>
+                        <mat-chip-row *ngFor="let category of addedCategories" (removed)="removeCategory(category)">
+                            {{category}}
+                            <button matChipRemove>
+                                x
+                            </button>
+                        </mat-chip-row>
+                    </mat-chip-grid>
+                    <input placeholder="Add new category..." [matChipInputFor]="categoriesGrid"
+                        [matAutocomplete]="categoryAutocomplete" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="addCategory($event)" id="category-input-field" />
+                    <mat-autocomplete #categoryAutocomplete="matAutocomplete"
+                        (optionSelected)="selectedCategory($event)">
+                        <mat-option *ngFor="let category of localCategories" [value]="category">
+                            {{category}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field class="example-chip-list">
+                    <mat-label>Labels...</mat-label>
+                    <mat-chip-grid #labelsGrid>
+                        <mat-chip-row *ngFor="let label of addedLabels" (removed)="removeLabel(label)">
+                            {{label}}
+                            <button matChipRemove>
+                                x
+                            </button>
+                        </mat-chip-row>
+                    </mat-chip-grid>
+                    <input placeholder="Add new label..." [matChipInputFor]="labelsGrid"
+                        [matAutocomplete]="labelAutocomplete" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="addLabel($event)" id="label-input-field" />
+                    <mat-autocomplete #labelAutocomplete="matAutocomplete" (optionSelected)="selectedLabel($event)">
+                        <mat-option *ngFor="let label of localLabels" [value]="label">
+                            {{label}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="text-editor-holder">
+                <mat-form-field id="document-editor">
+                    <mat-label>Textarea</mat-label>
+                    <textarea matInput></textarea>
+                </mat-form-field>
+                <div id="document-preview">
+                    
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button>SAVE</button>
+        <button mat-button>ABANDON</button>
+    </mat-card-actions>
+</mat-card>

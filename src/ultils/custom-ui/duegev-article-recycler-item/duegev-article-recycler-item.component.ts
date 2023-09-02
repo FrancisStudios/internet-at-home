@@ -96,4 +96,12 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  deleteArticle() {
+
+  }
+
+  editArticle() {
+
+  }
 }
