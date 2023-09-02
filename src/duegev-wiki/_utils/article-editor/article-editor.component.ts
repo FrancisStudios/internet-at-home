@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import * as Showdown from 'showdown';
-import { MatDialog } from '@angular/material/dialog';
-import { WikiArticleService } from 'src/ultils/services/article-provider-service/wiki-article.service';
+import { ArticleSearchQueryType, WikiArticleService } from 'src/ultils/services/article-provider-service/wiki-article.service';
 import { LabelsAndCategoriesService } from 'src/ultils/services/article-provider-service/labels-and-categories.service';
-import { ArticleSearchQueryType, DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/duegev-time-provider.service';
+import { DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/duegev-time-provider.service';
 import { UserData } from 'src/data-types/authentication/user-data';
 import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
 
@@ -109,12 +108,21 @@ export class ArticleEditorComponent implements OnInit, OnDestroy {
     this.save('presave');
   }
 
+  nullifyFields() {
+    (<HTMLInputElement>document.getElementById('duegev-article-title')).value = '';
+    (<HTMLInputElement>document.getElementById('duegev-time-form')).value = `${this.currentGameTime}`;
+    this.addedLabels = []; this.addedCategories = [];
+    (<HTMLTextAreaElement>document.getElementById('document-editor')).value = '';
+    this.MDContentText = '';
+    this.HTMLContentPreview = this.converter.makeHtml(this.MDContentText);
+  }
+
   save(intent: 'presave' | 'save') {
     if (this.loggedInUser && this.loggedInUser.password && this.loggedInUser.uid && this.loggedInUser.username) {
       const title: string = (<HTMLInputElement>document.getElementById('duegev-article-title')).value || '';
-      const duegev_date: string = (<HTMLInputElement>document.getElementById('duegev-time-form')).value;
+      const duegev_date: number = Number((<HTMLInputElement>document.getElementById('duegev-time-form')).value);
 
-      let saveQuery = {
+      let saveQuery: ArticleSearchQueryType = {
         query: 'insert',
         values: {
           _id: this.latestDocumentID + 1,
@@ -137,7 +145,17 @@ export class ArticleEditorComponent implements OnInit, OnDestroy {
           break;
 
         case 'save':
-          sessionStorage.removeItem(SessionStorageItems.UNSAVED_ARTICLE);
+          if ((title && title !== '') && (duegev_date && duegev_date !== 0) && (this.MDContentText && this.MDContentText !== '')) {
+            this.articleService.insertNewArticle(saveQuery).subscribe(queryResponse => {
+              if (queryResponse.queryValidation && queryResponse.queryValidation === 'valid') {
+                window.alert('Article successfully saved to DB');
+                sessionStorage.removeItem(SessionStorageItems.UNSAVED_ARTICLE);
+                this.nullifyFields();
+              } else {
+                window.alert('Error: we could not save this document due to technical issues...');
+              }
+            });
+          } else window.alert('Please fill all fields before saving!');
           break;
       }
     } else window.alert('Sorry, we can not save this document. It seems like you are not logged in! Please refresh the page, and try logging in.');
