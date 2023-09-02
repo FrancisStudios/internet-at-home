@@ -45,8 +45,8 @@ export class DuegevAccountComponent implements OnInit, OnDestroy {
       case _mItem = MenuItems.ARTICLES:
         this.activeMenu = MenuItems.ARTICLES;
         break;
-      case _mItem = MenuItems.SORTING:
-        this.activeMenu = MenuItems.SORTING
+      case _mItem = MenuItems.SOCIAL:
+        this.activeMenu = MenuItems.SOCIAL
         break;
     }
   }
@@ -65,6 +65,6 @@ enum MenuItems {
   ACCOUNT = 'account',
   PRIVILEGES = 'privileges',
   ARTICLES = 'articles',
-  SORTING = 'sorting',
+  SOCIAL = 'social',
   CREATIVE = 'creative'
 }

@@ -4,7 +4,6 @@
         <mat-card-subtitle>by Francis Studios</mat-card-subtitle>
 
         <mat-card-actions id="top-card-actions">
-            <button mat-raised-button color="warn">ABANDON</button>
             <button mat-raised-button color="primary">SAVE</button>
         </mat-card-actions>
 
@@ -14,7 +13,7 @@
         <div class="metadata-panel">
             <mat-form-field appearance="outline" id="article-title-form">
                 <mat-label>Article title</mat-label>
-                <input matInput placeholder="Title...">
+                <input matInput placeholder="Title..." id="duegev-article-title">
             </mat-form-field>
             <div class="metadata-holder">
                 <mat-form-field appearance="outline">
@@ -23,11 +22,11 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Author</mat-label>
-                    <input matInput placeholder="Author" disabled value="@{{loggedInUser.username}}">
+                    <input matInput placeholder="Author" disabled value="@{{loggedInUser.nickname}}">
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Creation Date</mat-label>
-                    <input matInput placeholder="Author" disabled value="2023.09.02">
+                    <input matInput placeholder="Author" disabled value="{{currentIRLDate}}">
                 </mat-form-field>
             </div>
             <div class="sorters-holder">
@@ -74,14 +73,13 @@
                 </mat-form-field>
             </div>
             <mat-divider></mat-divider>
+            <div class="text-editor-header">
+                <mat-card-title>Editor</mat-card-title>
+                <mat-card-title>Preview</mat-card-title>
+            </div>
             <div class="text-editor-holder">
-                <mat-form-field id="document-editor">
-                    <mat-label>Textarea</mat-label>
-                    <textarea matInput></textarea>
-                </mat-form-field>
-                <div id="document-preview">
-                    
-                </div>
+                <textarea id="document-editor" (input)="onMDInput()" placeholder="Your article starts here..."></textarea>
+                <div id="document-preview" [innerHTML]="HTMLContentPreview"></div>
             </div>
             <mat-divider></mat-divider>
         </div>
