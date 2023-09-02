@@ -30,10 +30,10 @@
         </div>
         <!-- MENU OPTION VIEWS -->
         <div class="options-wrapper">
+            <duegev-article-editor *ngIf="activeMenu==MenuItems.CREATIVE"></duegev-article-editor>
             <article-list-viewer *ngIf="activeMenu==MenuItems.ARTICLES"></article-list-viewer>
             <account-settings-viewer *ngIf="activeMenu==MenuItems.ACCOUNT"></account-settings-viewer>
         </div>
     </div>
 </div>
 
-<duegev-creative-menu *ngIf="isCreativeMenuEnabled" (closeCreativeMenu)="enableCreativeMenu()"></duegev-creative-menu>

@@ -57,7 +57,7 @@ export class DuegevAccountComponent implements OnInit, OnDestroy {
   }
 
   enableCreativeMenu() {
-    this.isCreativeMenuEnabled = !this.isCreativeMenuEnabled;
+    this.activeMenu = MenuItems.CREATIVE;
   }
 }
 
@@ -65,5 +65,6 @@ enum MenuItems {
   ACCOUNT = 'account',
   PRIVILEGES = 'privileges',
   ARTICLES = 'articles',
-  SORTING = 'sorting'
+  SORTING = 'sorting',
+  CREATIVE = 'creative'
 }

@@ -19,11 +19,11 @@
             <div class="metadata-holder">
                 <mat-form-field appearance="outline">
                     <mat-label>Dûgev time (K.i.)</mat-label>
-                    <input matInput placeholder="Date.." type="number">
+                    <input matInput placeholder="Date.." type="number" id="duegev-time-form">
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Author</mat-label>
-                    <input matInput placeholder="Author" disabled value="Jehem">
+                    <input matInput placeholder="Author" disabled value="@{{loggedInUser.username}}">
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Creation Date</mat-label>
@@ -86,8 +86,4 @@
             <mat-divider></mat-divider>
         </div>
     </mat-card-content>
-    <mat-card-actions>
-        <button mat-button>SAVE</button>
-        <button mat-button>ABANDON</button>
-    </mat-card-actions>
 </mat-card>
