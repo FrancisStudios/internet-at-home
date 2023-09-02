@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
 import { UserData } from 'src/data-types/authentication/user-data';
 import { DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/duegev-time-provider.service';
+import { InternetAtHomeLanguageService } from 'src/ultils/services/language.service';
 
 @Component({
   selector: 'duegev-account',
@@ -16,7 +17,10 @@ export class DuegevAccountComponent implements OnInit, OnDestroy {
 
   timeProviderSubscription: any;
 
-  constructor(private duegevTimeProvider: DuegevTimeProvider) { }
+  constructor(
+    private duegevTimeProvider: DuegevTimeProvider,
+    private languageProvider: InternetAtHomeLanguageService
+    ) { }
 
   ngOnInit(): void {
     this.loggedInUser = this.getLoggedInUser;
@@ -58,6 +62,10 @@ export class DuegevAccountComponent implements OnInit, OnDestroy {
 
   enableCreativeMenu() {
     this.activeMenu = MenuItems.CREATIVE;
+  }
+
+  getString(RESOURCE_IDENTIFIER: string): string {
+    return this.languageProvider.getString(RESOURCE_IDENTIFIER);
   }
 }
 
