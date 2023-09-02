@@ -21,8 +21,8 @@
                         {{ article.irl_date }}
                     </div>
                     <div *ngIf="isMyArticles" class="action-buttons-wrapper">
-                        <button mat-raised-button color="primary">Edit</button>
-                        <button mat-raised-button color="warn">Delete</button>
+                        <button mat-raised-button color="primary" (click)="editArticle()">Edit</button>
+                        <button mat-raised-button color="warn" (click)="deleteArticle()">Delete</button>
                     </div>
                     <div *ngIf="!isMyArticles" class="chip-box">
                         <mat-chip-listbox>

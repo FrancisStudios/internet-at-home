@@ -82,3 +82,10 @@
 .create-button{
   margin-left: 10px;
 }
+
+.options-wrapper duegev-article-editor {
+    display: flex;
+    position: relative;
+    width: 100% !important;
+    height: 100%;
+}

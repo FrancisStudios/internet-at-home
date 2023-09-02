@@ -23,17 +23,17 @@
                     <span matListItemLine>View and edit articles</span>
                 </mat-list-item>
                 <mat-list-item>
-                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.SORTING)">Sorting</span></span>
-                    <span matListItemLine>View and edit labels and categories</span>
+                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.SOCIAL)">Social</span></span>
+                    <span matListItemLine>Socialize with other player</span>
                 </mat-list-item>
             </mat-list>
         </div>
         <!-- MENU OPTION VIEWS -->
         <div class="options-wrapper">
+            <duegev-article-editor *ngIf="activeMenu==MenuItems.CREATIVE"></duegev-article-editor>
             <article-list-viewer *ngIf="activeMenu==MenuItems.ARTICLES"></article-list-viewer>
             <account-settings-viewer *ngIf="activeMenu==MenuItems.ACCOUNT"></account-settings-viewer>
         </div>
     </div>
 </div>
 
-<duegev-creative-menu *ngIf="isCreativeMenuEnabled" (closeCreativeMenu)="enableCreativeMenu()"></duegev-creative-menu>

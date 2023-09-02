@@ -19,6 +19,11 @@ export class DuegevTimeProvider {
         return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/duegev-time`, payload, { headers: this.headers });
     }
 
+    getIRLTime() : string {
+        let nilDate: Date = new Date();
+        return `${nilDate.getFullYear()}.${nilDate.getMonth() + 1}.${nilDate.getDate()}`;
+    }
+
     setTime(): Observable<any> {
         let nilDate: Date = new Date();
         let activeUser: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) || '');
