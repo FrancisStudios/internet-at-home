@@ -10,6 +10,7 @@ import { ArticleSearchQueryType, WikiArticleService } from 'src/ultils/services/
 import { GetUserByService } from 'src/ultils/services/authentication-service/get-user-by.service';
 import { DuegevSearchEngine } from 'src/ultils/services/duegev-wiki-proprietary/duegev-search-engine.service';
 import { DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/duegev-time-provider.service';
+import { InternetAtHomeLanguageService } from 'src/ultils/services/language.service';
 
 @Component({
   selector: 'duegev-browse',
@@ -33,7 +34,8 @@ export class DuegevBrowseComponent implements OnInit, OnDestroy {
     private getUserByService: GetUserByService,
     private dialogProvider: MatDialog,
     private likeService: DuegevArticleLikeService,
-    private duegevSearchEngine: DuegevSearchEngine) { }
+    private duegevSearchEngine: DuegevSearchEngine,
+    private languageProvider: InternetAtHomeLanguageService) { }
 
   ngOnInit(): void {
     this.articleServiceGetArticlesSubscription = this.articleService.getArticles(this.searchquery).subscribe(response => {
@@ -141,6 +143,10 @@ export class DuegevBrowseComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  getString(RESOURCE_IDENTIFIER: string): string {
+    return this.languageProvider.getString(RESOURCE_IDENTIFIER);
   }
 }
 

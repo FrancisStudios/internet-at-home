@@ -1,10 +1,10 @@
 <mat-card id="articles-browser">
     <mat-card-header id="article-search-header">
         <div class="input-holder">
-            <input type="text" placeholder="Search in all articles..." (keydown.enter)="search()" id="articles-search-bar">
-            <mat-card-subtitle id="results-shower">Showing {{numberOfSearchResults}} results...</mat-card-subtitle>
+            <input type="text" placeholder="{{getString('SEARCH_IN_ALL_ARTICLES')}}..." (keydown.enter)="search()" id="articles-search-bar">
+            <mat-card-subtitle id="results-shower">{{getString('SHOWING')}} {{numberOfSearchResults}} {{getString('RESULTS')}}...</mat-card-subtitle>
         </div>
-        <button mat-raised-button color="primary" id="search-button" (click)="search()">SEARCH</button>
+        <button mat-raised-button color="primary" id="search-button" (click)="search()">{{getString('SEARCH')}}</button>
     </mat-card-header>
     <div id="search-params-holder">
     </div>
@@ -29,9 +29,9 @@
             </mat-card-content>
             <mat-card-actions>
                 <button mat-raised-button color="primary" matBadge="{{getNumberOfLikes(article.likes)}}" matBadgePosition="before" matBadgeColor="accent" (click)="like(article.article_id, article.likes)">
-                    LIKE
+                    {{getString('LIKE')}}
                 </button>
-                <a mat-raised-button (click)="copyPermalinkToClipboard(article.article_id)">PERMALINK</a>
+                <a mat-raised-button (click)="copyPermalinkToClipboard(article.article_id)">{{getString('PERMALINK')}}</a>
             </mat-card-actions>
         </mat-card>
         <!-- /ARTICLE -->
