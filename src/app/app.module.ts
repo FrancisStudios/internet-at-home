@@ -41,6 +41,7 @@ import { DuegevHomePanelComponent } from '../duegev-wiki/owners-menu-options/due
 import { DuegevSearchEngine } from 'src/ultils/services/duegev-wiki-proprietary/duegev-search-engine.service';
 import { DuegevArticleRecyclerItemComponent } from '../ultils/custom-ui/duegev-article-recycler-item/duegev-article-recycler-item.component';
 import { ArticleEditorComponent } from '../duegev-wiki/_utils/article-editor/article-editor.component';
+import { InternetAtHomeLanguageService } from 'src/ultils/services/language.service';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { ArticleEditorComponent } from '../duegev-wiki/_utils/article-editor/art
     LabelsAndCategoriesService,
     GetUserByService,
     DuegevArticleLikeService,
+    InternetAtHomeLanguageService,
     DuegevSearchEngine,
     MatDialog
   ],
