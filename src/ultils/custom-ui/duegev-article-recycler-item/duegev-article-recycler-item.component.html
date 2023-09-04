@@ -53,11 +53,11 @@
             <p>You are attempting to delete your document [title] please confirm it with your password!</p>
             <mat-form-field appearance="outline" class="password-confirm-area">
                 <mat-label>Confirm with Password</mat-label>
-                <input matInput placeholder="Password" type="password">
+                <input matInput placeholder="Password" type="password" id="delete-password-confirmation">
             </mat-form-field>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-button>DELETE</button>
+            <button mat-button (click)="deleteArticleConfirm()">DELETE</button>
             <button mat-button (click)="deleteArticleConfirmNeeded = false">CANCEL</button>
         </mat-card-actions>
     </mat-card>
