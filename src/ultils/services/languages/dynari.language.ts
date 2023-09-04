@@ -2,6 +2,7 @@ export enum DynariLanguageModel {
     HOME = 'hám',
     BROWSE = 'søkker',
     ACCOUNT = 'koon',
+    ACCOUNT_M = 'Koon',
     SHOWING = 'Kjávingtur',
     RESULTS = 'resultaati',
     SEARCH = 'søkker',
@@ -10,10 +11,21 @@ export enum DynariLanguageModel {
     LABELS = 'léberi',
     LIKE = 'LYKKAR',
     PERMALINK = 'PERMALINK',
-
-    NEW_YEAR = 'Nó Yær',
+    NEW_YEAR = 'NÓ YÆR',
     CREATE = 'Crear',
     WELCOME = 'Bryggder Gott',
-
-    SAVE = 'saavar'
+    OWNERS_MENU = 'Ánerer Menu',
+    YOUR_ACCOUNT_SETTINGS = 'Þig koon configurations',
+    PRIVILEGES = 'Privilégi',
+    USE_SPECIFIC_FUNCTIONS = 'Brygt specifik functi fór Þigj bryger',
+    ARTICLES = 'Bókletters',
+    VIEW_AND_EDIT = 'Visid och redigeed bókletters',
+    SOCIAL = 'Sociaal',
+    SOCIALIZE = 'Socialerend mid annan spelars',
+    SAVE = 'saavar',
+    MOST_RECENT = 'Nóerne bókletter',
+    MOST_LIKED = 'Lykkerne',
+    READ_MORE = 'Lésønd már',
+    LIKES = 'Jag lykkt',
+    WORLD_MAP = 'vølt kaartogræf'
 }

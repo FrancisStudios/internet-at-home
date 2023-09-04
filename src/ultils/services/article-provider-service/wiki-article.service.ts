@@ -28,7 +28,23 @@ export class WikiArticleService {
         return this.getArticles({ query: 'get-latest' });
     }
 
-    
+    deleteArticle(article_id: string, username:string, password: string, UID: number) {
+
+        let deleteQuery: ArticleSearchQueryType = {
+            query: 'delete-article',
+            values: {
+                articleID: article_id,
+                credentials: {
+                    username: username,
+                    password: password,
+                    UID: UID
+                }
+            }
+        }
+
+        return this.getArticles(deleteQuery);
+    }
+
     getMostLiked(): Observable<any> {
         return this.getArticles({ query: 'get-most-liked' });
     }
@@ -40,12 +56,21 @@ export class WikiArticleService {
     getByUID(): Observable<any> {
         let user: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) || '')
         let UID = user.uid;
-        return this.getArticles({ query: 'get-by-uid', values: UID});
+        return this.getArticles({ query: 'get-by-uid', values: UID });
     }
 }
 
 export type ArticleSearchQueryType = {
     query: string,
-    values?: WikiArticle | string | number
+    values?: WikiArticle | string | number | DeleteArticleValueType
 }
 
+export type DeleteArticleValueType = {
+    articleID: string,
+    credentials: {
+        username: string,
+        password: string,
+        UID: number
+    }
+
+}

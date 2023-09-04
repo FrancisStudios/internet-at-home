@@ -30,6 +30,10 @@ export class DuegevHomeComponent implements OnInit, OnDestroy {
     this.timeProvider = this.duegevTimeProvider.getTime().subscribe(response => {
       if (response.queryValidation === 'valid') this.currentTime = response.values;
     });
+
+    if(sessionStorage.getItem(SessionStorageItems.DUEGEV_VIEWPORT)){
+      this.viewPort = sessionStorage.getItem(SessionStorageItems.DUEGEV_VIEWPORT) as VIEWPORTS;
+    }
   }
 
   ngOnDestroy(): void {
@@ -42,6 +46,7 @@ export class DuegevHomeComponent implements OnInit, OnDestroy {
 
   changeViewPort(viewport: VIEWPORTS) {
     this.viewPort = viewport;
+    sessionStorage.setItem(SessionStorageItems.DUEGEV_VIEWPORT, viewport);
   }
 
   getString(RESOURCE_IDENTIFIER: string): string {

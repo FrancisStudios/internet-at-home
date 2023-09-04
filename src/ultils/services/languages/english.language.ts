@@ -2,6 +2,7 @@ export enum EnglishLanguageModel {
     HOME = 'home',
     BROWSE = 'browse',
     ACCOUNT = 'account',
+    ACCOUNT_M = 'Account',
     SHOWING = 'Showing',
     RESULTS = 'results',
     SEARCH = 'search',
@@ -10,6 +11,21 @@ export enum EnglishLanguageModel {
     LABELS = 'labels',
     LIKE = 'LIKE',
     PERMALINK = 'PERMALINK',
-    
-    SAVE = 'save'
+    NEW_YEAR = 'NEW YEAR',
+    CREATE = 'Create',
+    WELCOME = 'Welcome',
+    OWNERS_MENU = 'Menu',
+    YOUR_ACCOUNT_SETTINGS = 'Your account settings',
+    PRIVILEGES = 'Privileges',
+    USE_SPECIFIC_FUNCTIONS = 'Use specific functions to your user',
+    ARTICLES = 'Articles',
+    VIEW_AND_EDIT = 'View and edit articles',
+    SOCIAL = 'Social',
+    SOCIALIZE = 'Socialize with other players',
+    SAVE = 'save',
+    MOST_RECENT = 'Most Recent',
+    MOST_LIKED = 'Most Liked',
+    READ_MORE = 'read more',
+    LIKES = 'Likes',
+    WORLD_MAP = 'WORLD MAP'
 }

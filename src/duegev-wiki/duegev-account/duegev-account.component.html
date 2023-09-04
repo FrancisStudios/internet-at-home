@@ -1,30 +1,30 @@
 <div id="account-view-wrapper">
     <nav class="duegev-title">
-        <button mat-raised-button color="primary" class="add-year" (click)="newYearControl()">+ New year</button>
-        <button mat-raised-button color="warn" class="create-button" (click)="enableCreativeMenu()">Create</button>
-        <span class="title"><button mat-raised-button disabled>welcome {{loggedInUser.nickname}}</button></span>
+        <button mat-raised-button color="primary" class="add-year" (click)="newYearControl()">+ {{getString('NEW_YEAR')}}</button>
+        <button mat-raised-button color="warn" class="create-button" (click)="enableCreativeMenu()">{{getString('CREATE')}}</button>
+        <span class="title"><button mat-raised-button disabled>{{getString('WELCOME')}} {{loggedInUser.nickname}}</button></span>
     </nav>
     <hr>
     <!-- MENU OPTIONS VIEWS -->
     <div class="content-section">
         <div class="menu-wrapper">
-            <h3 class="menu-title">Owner's menu</h3>
+            <h3 class="menu-title">{{getString('OWNERS_MENU')}}</h3>
             <mat-list>
                 <mat-list-item>
-                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.ACCOUNT)">Account</span></span>
-                    <span matListItemLine>Your own account settings</span>
+                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.ACCOUNT)">{{getString('ACCOUNT_M')}}</span></span>
+                    <span matListItemLine>{{getString('YOUR_ACCOUNT_SETTINGS')}}</span>
                 </mat-list-item>
                 <mat-list-item>
-                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.PRIVILEGES)">Privileges</span></span>
-                    <span matListItemLine>Use functions specific to your user</span>
+                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.PRIVILEGES)">{{getString('PRIVILEGES')}}</span></span>
+                    <span matListItemLine>{{getString('USE_SPECIFIC_FUNCTIONS')}}</span>
                 </mat-list-item>
                 <mat-list-item>
-                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.ARTICLES)">Articles</span></span>
-                    <span matListItemLine>View and edit articles</span>
+                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.ARTICLES)">{{getString('ARTICLES')}}</span></span>
+                    <span matListItemLine>{{getString('VIEW_AND_EDIT')}}</span>
                 </mat-list-item>
                 <mat-list-item>
-                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.SOCIAL)">Social</span></span>
-                    <span matListItemLine>Socialize with other player</span>
+                    <span matListItemTitle><span class="menu-item" (click)="menuClicked(MenuItems.SOCIAL)">{{getString('SOCIAL')}}</span></span>
+                    <span matListItemLine>{{getString('SOCIALIZE')}}</span>
                 </mat-list-item>
             </mat-list>
         </div>

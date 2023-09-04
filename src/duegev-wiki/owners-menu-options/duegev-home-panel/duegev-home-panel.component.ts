@@ -4,6 +4,7 @@ import { WikiArticle } from 'src/data-types/duegev-wiki/article.type';
 import { WikiArticleService } from 'src/ultils/services/article-provider-service/wiki-article.service';
 import { GetUserByService } from 'src/ultils/services/authentication-service/get-user-by.service';
 import { DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/duegev-time-provider.service';
+import { InternetAtHomeLanguageService } from 'src/ultils/services/language.service';
 
 @Component({
   selector: 'duegev-home-panel',
@@ -26,7 +27,9 @@ export class DuegevHomePanelComponent implements OnInit, OnDestroy {
   constructor(
     private duegevArticleService: WikiArticleService,
     private duegevTimeProvider: DuegevTimeProvider,
-    private getUserByService: GetUserByService) { }
+    private getUserByService: GetUserByService,
+    private languageProvider: InternetAtHomeLanguageService
+    ) { }
 
   ngOnInit(): void {
     this.getLatestArticleSubscription = this.duegevArticleService.getLatest().subscribe(response => {
@@ -79,5 +82,9 @@ export class DuegevHomePanelComponent implements OnInit, OnDestroy {
       return dictionaryLine.UID === UID;
     });
     return selectedUser[0]?.nickname;
+  }
+
+  getString(RESOURCE_IDENTIFIER: string): string {
+    return this.languageProvider.getString(RESOURCE_IDENTIFIER);
   }
 }

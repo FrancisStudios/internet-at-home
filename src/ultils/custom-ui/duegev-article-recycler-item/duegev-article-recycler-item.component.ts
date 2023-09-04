@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
 import { UserData } from 'src/data-types/authentication/user-data';
 import { WikiArticle } from 'src/data-types/duegev-wiki/article.type';
 import { WikiArticleService } from 'src/ultils/services/article-provider-service/wiki-article.service';
@@ -17,17 +18,21 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
 
   allArticles: WikiArticle[] = [];
   numberOfResults: number = 0;
-
+  articleToBeDeleted: string = 'none';
   UIDDictionary: any[] = [];
 
   articleQuerySubscription: any;
   searchEngineSubscription: any;
   getUserByServiceGetAllUsersSubscription: any;
+  deleteArticleSubscription: any;
+
+  deleteArticleConfirmNeeded: boolean = false;
 
   constructor(
     private duegevArticleService: WikiArticleService,
     private duegevSearchEngine: DuegevSearchEngine,
-    private getUserByService: GetUserByService
+    private getUserByService: GetUserByService,
+    private elementReference: ElementRef
   ) { }
 
   ngOnInit(): void {
@@ -57,6 +62,7 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.articleQuerySubscription) this.articleQuerySubscription.unsubscribe();
     if (this.getUserByServiceGetAllUsersSubscription) this.getUserByServiceGetAllUsersSubscription.unsubscribe();
+    if (this.deleteArticleSubscription) this.deleteArticleSubscription.unsubscribe();
   }
 
   getTargetArticles(subQuery: 'all' | 'my'): Observable<any> {
@@ -97,8 +103,41 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteArticle() {
+  deleteArticle(article_id: string) {
+    this.deleteArticleConfirmNeeded = true;
 
+    this.elementReference.nativeElement
+      .parentElement
+      .parentElement
+      .parentElement
+      .parentElement
+      .parentElement
+      .parentElement
+      .scrollTop = 0;
+
+    this.articleToBeDeleted = article_id;
+  }
+
+  deleteArticleConfirm() {
+    if (this.articleToBeDeleted !== 'none') {
+      let passwordConfirmation = (<HTMLInputElement>document.getElementById('delete-password-confirmation')).value;
+      let article_id = this.articleToBeDeleted;
+
+      if (passwordConfirmation && passwordConfirmation !== '') {
+        let user: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) as string);
+        this.deleteArticleConfirmed(article_id, user.username, passwordConfirmation, user.uid);
+      } else window.alert('WARNING! You must enter your password!');
+    }
+  }
+
+  private deleteArticleConfirmed(article_id: string, username: string, password: string, UID: number) {
+
+    this.deleteArticleSubscription = this.duegevArticleService.deleteArticle(article_id, username, password, UID).subscribe(dbResponse => {
+      if (dbResponse.queryValidation === 'valid') {
+        window.alert('Article has been successfully deleted!');
+        this.deleteArticleConfirmNeeded = false;
+      } else window.alert('ERROR: Article was not deleted!');
+    });
   }
 
   editArticle() {
