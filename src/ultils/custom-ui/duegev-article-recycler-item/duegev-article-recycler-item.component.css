@@ -33,3 +33,28 @@
     display: flex;
     flex-direction: row;
 }
+
+.confirm-delete-menu-backdrop {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.877);
+    user-select: none;
+    pointer-events: none;
+    z-index: 600;
+}
+
+.confirm-delete-menu {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    width: 70%;
+    transform: translate(-50%, 0%);
+    z-index: 601;
+}
+
+.password-confirm-area {
+    width: 100%;
+}

@@ -20,10 +20,15 @@ export class DuegevAccountComponent implements OnInit, OnDestroy {
   constructor(
     private duegevTimeProvider: DuegevTimeProvider,
     private languageProvider: InternetAtHomeLanguageService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.loggedInUser = this.getLoggedInUser;
+
+    /* GET OPENED MENU ITEM (IF EXISTS) */
+    if (sessionStorage.getItem(SessionStorageItems.OPEN_MENU_ITEM)) {
+      this.activeMenu = sessionStorage.getItem(SessionStorageItems.OPEN_MENU_ITEM) as MenuItems;
+    }
   }
 
   ngOnDestroy(): void {
@@ -42,15 +47,19 @@ export class DuegevAccountComponent implements OnInit, OnDestroy {
     switch (_mItem) {
       case _mItem = MenuItems.ACCOUNT:
         this.activeMenu = MenuItems.ACCOUNT;
+        this.setCurrentlyViewedMenuItem(MenuItems.ACCOUNT);
         break;
       case _mItem = MenuItems.PRIVILEGES:
         this.activeMenu = MenuItems.PRIVILEGES;
+        this.setCurrentlyViewedMenuItem(MenuItems.PRIVILEGES);
         break;
       case _mItem = MenuItems.ARTICLES:
         this.activeMenu = MenuItems.ARTICLES;
+        this.setCurrentlyViewedMenuItem(MenuItems.ARTICLES);
         break;
       case _mItem = MenuItems.SOCIAL:
         this.activeMenu = MenuItems.SOCIAL
+        this.setCurrentlyViewedMenuItem(MenuItems.SOCIAL);
         break;
     }
   }
@@ -62,10 +71,15 @@ export class DuegevAccountComponent implements OnInit, OnDestroy {
 
   enableCreativeMenu() {
     this.activeMenu = MenuItems.CREATIVE;
+    this.setCurrentlyViewedMenuItem(MenuItems.CREATIVE);
   }
 
   getString(RESOURCE_IDENTIFIER: string): string {
     return this.languageProvider.getString(RESOURCE_IDENTIFIER);
+  }
+
+  setCurrentlyViewedMenuItem(menuItem: MenuItems) {
+    sessionStorage.setItem(SessionStorageItems.OPEN_MENU_ITEM, menuItem);
   }
 }
 

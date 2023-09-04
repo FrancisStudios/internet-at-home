@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserData } from 'src/data-types/authentication/user-data';
 import { WikiArticle } from 'src/data-types/duegev-wiki/article.type';
@@ -23,11 +23,15 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
   articleQuerySubscription: any;
   searchEngineSubscription: any;
   getUserByServiceGetAllUsersSubscription: any;
+  deleteArticleSubscription: any;
+
+  deleteArticleConfirmNeeded: boolean = false;
 
   constructor(
     private duegevArticleService: WikiArticleService,
     private duegevSearchEngine: DuegevSearchEngine,
-    private getUserByService: GetUserByService
+    private getUserByService: GetUserByService,
+    private elementReference: ElementRef
   ) { }
 
   ngOnInit(): void {
@@ -57,6 +61,7 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.articleQuerySubscription) this.articleQuerySubscription.unsubscribe();
     if (this.getUserByServiceGetAllUsersSubscription) this.getUserByServiceGetAllUsersSubscription.unsubscribe();
+    if (this.deleteArticleSubscription) this.deleteArticleSubscription.unsubscribe();
   }
 
   getTargetArticles(subQuery: 'all' | 'my'): Observable<any> {
@@ -97,8 +102,24 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteArticle() {
+  deleteArticle(article_id: string) {
+    this.deleteArticleConfirmNeeded = true;
 
+    this.elementReference.nativeElement
+      .parentElement
+      .parentElement
+      .parentElement
+      .parentElement
+      .parentElement
+      .parentElement
+      .scrollTop = 0;
+
+    this.deleteArticleConfirmed(article_id);
+  }
+
+  private deleteArticleConfirmed(article_id: string) {
+    this.deleteArticleConfirmNeeded = false;
+    //this.deleteArticleSubscription = this.duegevArticleService.deleteArticle(article_id, username, password, UID).subscribe(dbResponse=>{});
   }
 
   editArticle() {
