@@ -20,6 +20,7 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
   numberOfResults: number = 0;
   articleToBeDeleted: string = 'none';
   UIDDictionary: any[] = [];
+  confirmPassword: string = '';
 
   articleQuerySubscription: any;
   searchEngineSubscription: any;
@@ -105,7 +106,7 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
 
   deleteArticle(article_id: string) {
     this.deleteArticleConfirmNeeded = true;
-
+    /*
     this.elementReference.nativeElement
       .parentElement
       .parentElement
@@ -114,13 +115,13 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
       .parentElement
       .parentElement
       .scrollTop = 0;
-
+    */
     this.articleToBeDeleted = article_id;
   }
 
   deleteArticleConfirm() {
     if (this.articleToBeDeleted !== 'none') {
-      let passwordConfirmation = (<HTMLInputElement>document.getElementById('delete-password-confirmation')).value;
+      let passwordConfirmation = this.confirmPassword;
       let article_id = this.articleToBeDeleted;
 
       if (passwordConfirmation && passwordConfirmation !== '') {
@@ -130,17 +131,26 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
     }
   }
 
+  typeConfirmPassword($event: any) {
+    if ($event.data !== null) {
+      this.confirmPassword += $event.data;
+    } else {
+      this.confirmPassword = this.confirmPassword.slice(0, -1);
+    }
+  }
+
   private deleteArticleConfirmed(article_id: string, username: string, password: string, UID: number) {
 
     this.deleteArticleSubscription = this.duegevArticleService.deleteArticle(article_id, username, password, UID).subscribe(dbResponse => {
       if (dbResponse.queryValidation === 'valid') {
         window.alert('Article has been successfully deleted!');
         this.deleteArticleConfirmNeeded = false;
+        this.confirmPassword = '';
+        this.ngOnInit();
       } else window.alert('ERROR: Article was not deleted!');
     });
   }
 
   editArticle() {
-
   }
 }
