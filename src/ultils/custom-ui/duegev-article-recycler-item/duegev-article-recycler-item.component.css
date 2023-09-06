@@ -44,6 +44,7 @@
     user-select: none;
     pointer-events: none;
     z-index: 600;
+    display: block;
 }
 
 .confirm-delete-menu {
@@ -53,8 +54,25 @@
     width: 70%;
     transform: translate(-50%, 0%);
     z-index: 601;
+    display: block;
 }
 
 .password-confirm-area {
     width: 100%;
+}
+
+.menu-item-editor {
+    position: relative;
+    min-height: 85vh;
+}
+
+.delete-confirmation {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: max-content;
+    min-height: 400px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
 }

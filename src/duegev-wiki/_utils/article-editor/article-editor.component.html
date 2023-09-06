@@ -4,7 +4,9 @@
         <mat-card-subtitle>by Francis Studios</mat-card-subtitle>
 
         <mat-card-actions id="top-card-actions">
-            <button mat-raised-button color="primary" (click)="save('save')">SAVE</button>
+            <button mat-raised-button color="primary" (click)="save(isRouterMode? 'update' : 'save')">SAVE</button>
+            <button mat-raised-button color="warn" *ngIf="isRouterMode" (click)="navigateBack()">BACK</button>
+            <button mat-raised-button *ngIf="!isRouterMode" (click)="clearUnsaved()">CLEAR</button>
         </mat-card-actions>
 
     </mat-card-header>
@@ -78,7 +80,8 @@
                 <mat-card-title>Preview</mat-card-title>
             </div>
             <div class="text-editor-holder">
-                <textarea id="document-editor" (input)="onMDInput()" placeholder="Your article starts here..."></textarea>
+                <textarea id="document-editor" (input)="onMDInput()"
+                    placeholder="Your article starts here..."></textarea>
                 <div id="document-preview" [innerHTML]="HTMLContentPreview"></div>
             </div>
             <mat-divider></mat-divider>

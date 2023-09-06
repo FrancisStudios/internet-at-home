@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, Input, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
 import { UserData } from 'src/data-types/authentication/user-data';
@@ -20,6 +21,7 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
   numberOfResults: number = 0;
   articleToBeDeleted: string = 'none';
   UIDDictionary: any[] = [];
+  confirmPassword: string = '';
 
   articleQuerySubscription: any;
   searchEngineSubscription: any;
@@ -32,7 +34,7 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
     private duegevArticleService: WikiArticleService,
     private duegevSearchEngine: DuegevSearchEngine,
     private getUserByService: GetUserByService,
-    private elementReference: ElementRef
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -105,22 +107,12 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
 
   deleteArticle(article_id: string) {
     this.deleteArticleConfirmNeeded = true;
-
-    this.elementReference.nativeElement
-      .parentElement
-      .parentElement
-      .parentElement
-      .parentElement
-      .parentElement
-      .parentElement
-      .scrollTop = 0;
-
     this.articleToBeDeleted = article_id;
   }
 
   deleteArticleConfirm() {
     if (this.articleToBeDeleted !== 'none') {
-      let passwordConfirmation = (<HTMLInputElement>document.getElementById('delete-password-confirmation')).value;
+      let passwordConfirmation = this.confirmPassword;
       let article_id = this.articleToBeDeleted;
 
       if (passwordConfirmation && passwordConfirmation !== '') {
@@ -130,17 +122,35 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
     }
   }
 
+  typeConfirmPassword($event: any) {
+    if ($event.data !== null) {
+      this.confirmPassword += $event.data;
+    } else {
+      this.confirmPassword = this.confirmPassword.slice(0, -1);
+    }
+  }
+
   private deleteArticleConfirmed(article_id: string, username: string, password: string, UID: number) {
 
     this.deleteArticleSubscription = this.duegevArticleService.deleteArticle(article_id, username, password, UID).subscribe(dbResponse => {
       if (dbResponse.queryValidation === 'valid') {
         window.alert('Article has been successfully deleted!');
         this.deleteArticleConfirmNeeded = false;
+        this.confirmPassword = '';
+        this.ngOnInit();
       } else window.alert('ERROR: Article was not deleted!');
     });
   }
 
-  editArticle() {
+  editArticle(article: WikiArticle) {
 
+    let _article = {
+      query: '%none%',
+      values: article
+    }
+
+    let article_str = JSON.stringify(_article);
+    sessionStorage.setItem(SessionStorageItems.UNSAVED_ARTICLE, article_str);
+    this.router.navigate(['duegev-wiki/article-editor']);
   }
 }
