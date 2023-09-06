@@ -21,7 +21,7 @@
                         {{ article.irl_date }}
                     </div>
                     <div *ngIf="isMyArticles" class="action-buttons-wrapper">
-                        <button mat-raised-button color="primary" (click)="editArticle()">Edit</button>
+                        <button mat-raised-button color="primary" (click)="editArticle(article)">Edit</button>
                         <button mat-raised-button color="warn"
                             (click)="deleteArticle(article.article_id)">Delete</button>
                     </div>

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, Input, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
 import { UserData } from 'src/data-types/authentication/user-data';
@@ -33,7 +34,7 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
     private duegevArticleService: WikiArticleService,
     private duegevSearchEngine: DuegevSearchEngine,
     private getUserByService: GetUserByService,
-    private elementReference: ElementRef
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -106,16 +107,6 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
 
   deleteArticle(article_id: string) {
     this.deleteArticleConfirmNeeded = true;
-    /*
-    this.elementReference.nativeElement
-      .parentElement
-      .parentElement
-      .parentElement
-      .parentElement
-      .parentElement
-      .parentElement
-      .scrollTop = 0;
-    */
     this.articleToBeDeleted = article_id;
   }
 
@@ -151,6 +142,15 @@ export class DuegevArticleRecyclerItemComponent implements OnInit, OnDestroy {
     });
   }
 
-  editArticle() {
+  editArticle(article: WikiArticle) {
+
+    let _article = {
+      query: '%none%',
+      values: article
+    }
+
+    let article_str = JSON.stringify(_article);
+    sessionStorage.setItem(SessionStorageItems.UNSAVED_ARTICLE, article_str);
+    this.router.navigate(['duegev-wiki/article-editor']);
   }
 }

@@ -6,6 +6,9 @@ import { LabelsAndCategoriesService } from 'src/ultils/services/article-provider
 import { DuegevTimeProvider } from 'src/ultils/services/duegev-wiki-proprietary/duegev-time-provider.service';
 import { UserData } from 'src/data-types/authentication/user-data';
 import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+import { WikiArticle } from 'src/data-types/duegev-wiki/article.type';
 
 @Component({
   selector: 'duegev-article-editor',
@@ -19,6 +22,8 @@ export class ArticleEditorComponent implements OnInit, OnDestroy {
 
   loggedInUser: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) || '');
   currentIRLDate: string = this.duegevTimeServer.getIRLTime();
+
+  localArticle: WikiArticle | any;
 
   localCategories: string[] = [];
   localCategoriesObject: any[] = [];
@@ -36,6 +41,8 @@ export class ArticleEditorComponent implements OnInit, OnDestroy {
   HTMLContentPreview: string = '';
   MDContentText: string = '';
 
+  isRouterMode: boolean = false;
+
   /* SUBSCRIPTIONS */
   labelsSubscription: any;
   categoriesSubscription: any;
@@ -45,7 +52,9 @@ export class ArticleEditorComponent implements OnInit, OnDestroy {
   constructor(
     private sortersService: LabelsAndCategoriesService,
     private articleService: WikiArticleService,
-    private duegevTimeServer: DuegevTimeProvider) { }
+    private duegevTimeServer: DuegevTimeProvider,
+    private location: Location,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.labelsSubscription = this.sortersService.getSorters({ query: 'labels' }).subscribe(labelsList => {
@@ -75,18 +84,30 @@ export class ArticleEditorComponent implements OnInit, OnDestroy {
       }
     });
 
+    /* PRELOAD UNSAVED ARTICLE */
+
     if (sessionStorage.getItem(SessionStorageItems.UNSAVED_ARTICLE)) {
-      // PRELOAD UNSAVED ARTICLE
+
       let articleQueryObject = JSON.parse(sessionStorage.getItem(SessionStorageItems.UNSAVED_ARTICLE) as string);
-      if (this.loggedInUser.uid === articleQueryObject.values.author) {
+      this.localArticle = articleQueryObject.values;
+
+      if (this.loggedInUser.uid === Number(articleQueryObject.values.author)) {
         (<HTMLInputElement>document.getElementById('duegev-article-title')).value = articleQueryObject.values.title;
         (<HTMLInputElement>document.getElementById('duegev-time-form')).value = articleQueryObject.values.date;
+        if (typeof articleQueryObject.values.labels === 'string') articleQueryObject.values.labels = JSON.parse(articleQueryObject.values.labels);
         this.addedLabels.push(...articleQueryObject.values.labels);
+        if (typeof articleQueryObject.values.categories === 'string') articleQueryObject.values.categories = JSON.parse(articleQueryObject.values.categories);
         this.addedCategories.push(...articleQueryObject.values.categories);
         (<HTMLTextAreaElement>document.getElementById('document-editor')).value = articleQueryObject.values.document;
         this.MDContentText = articleQueryObject.values.document;
         this.HTMLContentPreview = this.converter.makeHtml(this.MDContentText);
       }
+    }
+
+    /* DETERMINES IF WE ARE COMPONENT OR ROUTED MODE */
+
+    if (this.router.url === '/duegev-wiki/article-editor') {
+      this.isRouterMode = true;
     }
   }
 
@@ -117,16 +138,18 @@ export class ArticleEditorComponent implements OnInit, OnDestroy {
     this.HTMLContentPreview = this.converter.makeHtml(this.MDContentText);
   }
 
-  save(intent: 'presave' | 'save') {
+  save(intent: 'presave' | 'save' | 'update') {
     if (this.loggedInUser && this.loggedInUser.password && this.loggedInUser.uid && this.loggedInUser.username) {
       const title: string = (<HTMLInputElement>document.getElementById('duegev-article-title')).value || '';
       const duegev_date: number = Number((<HTMLInputElement>document.getElementById('duegev-time-form')).value);
+
+      let prepared_article_id = this.isRouterMode ? this.localArticle.article_id : `article_${this.latestDocumentID + 1}`;
 
       let saveQuery: ArticleSearchQueryType = {
         query: 'insert',
         values: {
           _id: this.latestDocumentID + 1,
-          article_id: `article_${this.latestDocumentID + 1}`,
+          article_id: prepared_article_id,
           title: title,
           date: duegev_date,
           author: this.loggedInUser.uid,
@@ -157,11 +180,28 @@ export class ArticleEditorComponent implements OnInit, OnDestroy {
             });
           } else window.alert('Please fill all fields before saving!');
           break;
+
+        case 'update':
+          if ((title && title !== '') && (duegev_date && duegev_date !== 0) && (this.MDContentText && this.MDContentText !== '')) {
+
+
+          } else window.alert('Please fill all fields before saving!');
+          break;
       }
     } else window.alert('Sorry, we can not save this document. It seems like you are not logged in! Please refresh the page, and try logging in.');
   }
 
+  navigateBack(): void {
+    this.location.back();
+  }
+
+  clearUnsaved(): void {
+    sessionStorage.removeItem(SessionStorageItems.UNSAVED_ARTICLE);
+    this.nullifyFields();
+  }
+
   /* SORTER OPERTATORS */
+
   removeCategory(category: any) {
     this.addedCategories = this.addedCategories.filter(addedCategory => addedCategory !== category);
   }
@@ -180,7 +220,6 @@ export class ArticleEditorComponent implements OnInit, OnDestroy {
   }
 
   addLabel(event: any) {
-    console.log('addLabel')
     if (this.localLabels.includes(event.value)) this.addedLabels.push(event.value);
     (<HTMLInputElement>document.getElementById('label-input-field')).value = '';
   }
