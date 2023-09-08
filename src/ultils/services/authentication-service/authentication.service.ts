@@ -38,6 +38,13 @@ export class AuthenticationService {
     sessionStorage.setItem(SessionStorageItems.USER, JSON.stringify(UserProfileData));
   }
 
+  getTruncatedUserData(): Observable<any> {
+    let loggedInUser: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) as string);
+
+    let payload = JSON.stringify({ query: 'get-truncated-ud', values: { username: loggedInUser.username, password: loggedInUser.password } });
+    return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/login`, payload, { headers: this.headers });
+  }
+
   testService() {
     this.httpClient.get('http://localhost:3000/', { responseType: 'text' }).subscribe((response) => {
       console.log(response)

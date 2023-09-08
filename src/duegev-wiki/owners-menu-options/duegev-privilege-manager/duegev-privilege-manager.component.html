@@ -1,0 +1,55 @@
+<div id="privilege-widget-holder">
+
+    <!-- USER ADDER WIDGET ROLES: SUDO, RECRUITER -->
+    <mat-card *ngIf="includes('sudo') || includes('recruiter')">
+        <mat-card-header>
+            <mat-card-title>Manage users</mat-card-title>
+            <mat-card-subtitle>Add and manage users</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <table id="user-list-table">
+                <tr *ngFor="let truncatedUD of allTruncatedUsers">
+                    <td>{{truncatedUD.username}}</td>
+                    <td>
+                        <mat-chip-listbox>
+                            <mat-chip disabled>@{{truncatedUD.prefix}} {{truncatedUD.nickname}}</mat-chip>
+                        </mat-chip-listbox>
+                    </td>
+                    <td>
+                        <mat-accordion class="manage-panel">
+                            <mat-expansion-panel hideToggle [disabled]="!includes('sudo')">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Manage Roles
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <div class="slide-toggle-wrapper">
+                                    <mat-slide-toggle [(ngModel)]="isChecked" color="primary" *ngFor="let privilege of allPrivilegesList">
+                                        <b>{{privilege}}</b>: 
+                                        {{isChecked}}
+                                    </mat-slide-toggle>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </td>
+                </tr>
+            </table>
+        </mat-card-content>
+        <mat-card-actions>
+        </mat-card-actions>
+    </mat-card>
+
+
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Actions Buttons</mat-card-title>
+            <mat-card-subtitle>Start</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+        </mat-card-actions>
+    </mat-card>
+
+</div>
