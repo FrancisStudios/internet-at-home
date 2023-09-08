@@ -28,7 +28,7 @@ export class WikiArticleService {
         return this.getArticles({ query: 'get-latest' });
     }
 
-    deleteArticle(article_id: string, username:string, password: string, UID: number) {
+    deleteArticle(article_id: string, username: string, password: string, UID: number) {
 
         let deleteQuery: ArticleSearchQueryType = {
             query: 'delete-article',
@@ -51,6 +51,10 @@ export class WikiArticleService {
 
     insertNewArticle(searchquery: ArticleSearchQueryType): Observable<any> {
         return this.getArticles(searchquery);
+    }
+
+    updateArticle(saveQuery: ArticleSearchQueryType): Observable<any> {
+        return this.getArticles(saveQuery);
     }
 
     getByUID(): Observable<any> {
