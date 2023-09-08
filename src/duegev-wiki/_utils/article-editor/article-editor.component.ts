@@ -144,11 +144,13 @@ export class ArticleEditorComponent implements OnInit, OnDestroy {
       const duegev_date: number = Number((<HTMLInputElement>document.getElementById('duegev-time-form')).value);
 
       let prepared_article_id = this.isRouterMode ? this.localArticle.article_id : `article_${this.latestDocumentID + 1}`;
+      let prepared__id = this.isRouterMode ? this.localArticle._id : this.latestDocumentID + 1;
+      let prepared_queryType = this.isRouterMode ? 'update-article' : 'insert';
 
       let saveQuery: ArticleSearchQueryType = {
-        query: 'insert',
+        query: prepared_queryType,
         values: {
-          _id: this.latestDocumentID + 1,
+          _id: prepared__id,
           article_id: prepared_article_id,
           title: title,
           date: duegev_date,
@@ -183,8 +185,16 @@ export class ArticleEditorComponent implements OnInit, OnDestroy {
 
         case 'update':
           if ((title && title !== '') && (duegev_date && duegev_date !== 0) && (this.MDContentText && this.MDContentText !== '')) {
-
-
+            this.articleService.updateArticle(saveQuery).subscribe(queryResponse=>{
+              if (queryResponse.queryValidation && queryResponse.queryValidation === 'valid') {
+                window.alert('Article successfully updated!');
+                sessionStorage.removeItem(SessionStorageItems.UNSAVED_ARTICLE);
+                this.nullifyFields();
+                this.location.back();
+              } else {
+                window.alert('Error: we could not save this document due to technical issues...');
+              }
+            })
           } else window.alert('Please fill all fields before saving!');
           break;
       }
