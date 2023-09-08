@@ -1,0 +1,25 @@
+#privilege-widget-holder {
+    margin: 10px 10px;
+}
+
+mat-card {
+    margin-bottom: 10px;
+}
+
+#user-list-table td {
+    padding: 0px 15px;
+}
+
+#user-list-table tr:nth-child(odd) {
+    background-color: #cecece2a;
+}
+
+.manage-panel {
+    padding: 1px;
+}
+
+.slide-toggle-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

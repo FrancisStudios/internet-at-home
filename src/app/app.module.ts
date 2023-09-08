@@ -20,7 +20,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatAutocompleteModule } from '@angular/material/autocomplete'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -42,6 +43,8 @@ import { DuegevSearchEngine } from 'src/ultils/services/duegev-wiki-proprietary/
 import { DuegevArticleRecyclerItemComponent } from '../ultils/custom-ui/duegev-article-recycler-item/duegev-article-recycler-item.component';
 import { ArticleEditorComponent } from '../duegev-wiki/_utils/article-editor/article-editor.component';
 import { InternetAtHomeLanguageService } from 'src/ultils/services/language.service';
+import { DuegevPrivilegeManagerComponent } from '../duegev-wiki/owners-menu-options/duegev-privilege-manager/duegev-privilege-manager.component';
+import { DuegevPrivilegeProviderService } from 'src/ultils/services/authentication-service/privileges-provider.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,8 @@ import { InternetAtHomeLanguageService } from 'src/ultils/services/language.serv
     DuegevDocumentViewerComponent,
     DuegevHomePanelComponent,
     DuegevArticleRecyclerItemComponent,
-    ArticleEditorComponent
+    ArticleEditorComponent,
+    DuegevPrivilegeManagerComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +86,8 @@ import { InternetAtHomeLanguageService } from 'src/ultils/services/language.serv
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSlideToggleModule
   ],
   providers: [
     AuthenticationService,
@@ -93,6 +98,7 @@ import { InternetAtHomeLanguageService } from 'src/ultils/services/language.serv
     DuegevArticleLikeService,
     InternetAtHomeLanguageService,
     DuegevSearchEngine,
+    DuegevPrivilegeProviderService,
     MatDialog
   ],
   bootstrap: [CrossroadComponent]
