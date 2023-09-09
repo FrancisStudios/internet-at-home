@@ -15,6 +15,7 @@ export class DuegevPrivilegeManagerComponent implements OnInit, OnDestroy {
   allTruncatedUsers: TruncatedUserData[] | any;
   myPrivileges: string[] = [];
   userPrivileges: any;
+  createdNewUser: GeneralCredentials = { username: '', password: '' };
 
   /* SUBSCRIPTIONS */
   getAllUsersSubscription: any;
@@ -43,6 +44,23 @@ export class DuegevPrivilegeManagerComponent implements OnInit, OnDestroy {
   includes(ROLE: string): boolean {
     return this.myPrivileges.includes(ROLE);
   }
+
+  newUserCreatorInputs($event: any, target: 'username' | 'password') {
+    switch (target) {
+      case 'username':
+        $event.data !== null
+          ? this.createdNewUser.username += $event.data
+          : this.createdNewUser.username = this.createdNewUser.username.slice(0, -1);
+        break;
+
+      case 'password':
+        $event.data !== null
+          ? this.createdNewUser.password += $event.data
+          : this.createdNewUser.password = this.createdNewUser.password.slice(0, -1);
+        break;
+    }
+    console.log(this.createdNewUser);
+  }
 }
 
 export type TruncatedUserData = {
@@ -51,4 +69,9 @@ export type TruncatedUserData = {
   nickname: string,
   uid: number,
   privileges: string[];
+}
+
+export type GeneralCredentials = {
+  username: string,
+  password: string,
 }

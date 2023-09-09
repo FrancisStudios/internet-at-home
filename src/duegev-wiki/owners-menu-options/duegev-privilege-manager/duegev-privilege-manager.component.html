@@ -24,8 +24,9 @@
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <div class="slide-toggle-wrapper">
-                                    <mat-slide-toggle [(ngModel)]="isChecked" color="primary" *ngFor="let privilege of allPrivilegesList">
-                                        <b>{{privilege}}</b>: 
+                                    <mat-slide-toggle [(ngModel)]="isChecked" color="primary"
+                                        *ngFor="let privilege of allPrivilegesList">
+                                        <b>{{privilege}}</b>:
                                         {{isChecked}}
                                     </mat-slide-toggle>
                                 </div>
@@ -34,11 +35,24 @@
                     </td>
                 </tr>
             </table>
+            <mat-divider></mat-divider>
+            <mat-card-title>Create new user</mat-card-title>
+            <div id="addUserAction">
+                <mat-form-field appearance="outline">
+                    <mat-label>New User's Username</mat-label>
+                    <input matInput placeholder="Username..." (input)="newUserCreatorInputs($event, 'username')">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>New User's Password</mat-label>
+                    <input matInput placeholder="Password..." (input)="newUserCreatorInputs($event, 'password')">
+                </mat-form-field>
+                <button mat-raised-button color="warn">Create</button>
+            </div>
+            <p>Note new users will get roles from the webmaster, default roles: increment date, create and modify documents, use social panel to chat is available for anyone.</p>
         </mat-card-content>
         <mat-card-actions>
         </mat-card-actions>
     </mat-card>
-
 
 
     <mat-card>
