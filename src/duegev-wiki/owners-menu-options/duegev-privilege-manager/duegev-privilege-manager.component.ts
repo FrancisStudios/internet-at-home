@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
+import { UserData } from 'src/data-types/authentication/user-data';
 import { AuthenticationService } from 'src/ultils/services/authentication-service/authentication.service';
 import { DuegevAccountPrivileges, DuegevPrivilegeProviderService } from 'src/ultils/services/authentication-service/privileges-provider.service';
 
@@ -10,12 +12,16 @@ import { DuegevAccountPrivileges, DuegevPrivilegeProviderService } from 'src/ult
 export class DuegevPrivilegeManagerComponent implements OnInit, OnDestroy {
 
   isChecked: boolean = false; //just test variable
+  isConfirmUserCreation: boolean = false;
 
   allPrivilegesList = DuegevAccountPrivileges;
   allTruncatedUsers: TruncatedUserData[] | any;
   myPrivileges: string[] = [];
   userPrivileges: any;
   createdNewUser: GeneralCredentials = { username: '', password: '' };
+  createdNewUserConfirm = { initiatorPassWord: '', newUserPassword: '' };
+
+  localUser: UserData = JSON.parse(sessionStorage.getItem(SessionStorageItems.USER) as string);
 
   /* SUBSCRIPTIONS */
   getAllUsersSubscription: any;
@@ -59,7 +65,37 @@ export class DuegevPrivilegeManagerComponent implements OnInit, OnDestroy {
           : this.createdNewUser.password = this.createdNewUser.password.slice(0, -1);
         break;
     }
-    console.log(this.createdNewUser);
+  }
+
+  newUserConfirmInputs($event: any, target: 'initiator' | 'target') {
+    switch (target) {
+      case 'initiator':
+        $event.data !== null
+          ? this.createdNewUserConfirm.initiatorPassWord += $event.data
+          : this.createdNewUserConfirm.initiatorPassWord = this.createdNewUserConfirm.initiatorPassWord.slice(0, -1);
+        break;
+
+      case 'target':
+        $event.data !== null
+          ? this.createdNewUserConfirm.newUserPassword += $event.data
+          : this.createdNewUserConfirm.newUserPassword = this.createdNewUserConfirm.newUserPassword.slice(0, -1);
+        break;
+    }
+  }
+
+  createNewUser() {
+    if (this.allTruncatedUsers.map((tu: { username: string; }) => tu.username).includes(this.createdNewUser.username)) {
+      if (
+        (this.createdNewUser.password === this.createdNewUserConfirm.newUserPassword) &&
+        (this.createdNewUserConfirm.initiatorPassWord === this.localUser.password)
+      ) {
+        /* TODO: Initiate saving user into db*/
+      } else window.alert('Passwords does not match up!')
+    } else window.alert('Username already exists!');
+  }
+
+  askForConfirmationPanel() {
+    this.isConfirmUserCreation = true;
   }
 }
 

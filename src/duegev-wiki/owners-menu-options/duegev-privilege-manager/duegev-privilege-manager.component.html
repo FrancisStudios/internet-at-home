@@ -46,9 +46,26 @@
                     <mat-label>New User's Password</mat-label>
                     <input matInput placeholder="Password..." (input)="newUserCreatorInputs($event, 'password')">
                 </mat-form-field>
-                <button mat-raised-button color="warn">Create</button>
+                <button mat-raised-button color="warn" (click)="askForConfirmationPanel()">Create</button>
             </div>
-            <p>Note new users will get roles from the webmaster, default roles: increment date, create and modify documents, use social panel to chat is available for anyone.</p>
+            <p>Note new users will get roles from the webmaster, default roles: increment date, create and modify
+                documents, use social panel to chat is available for anyone.</p>
+            <div *ngIf="isConfirmUserCreation">
+                <mat-card-title>Confirm passwords</mat-card-title>
+                <div id="confirm-user-creation-panel">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Confirm Your Password</mat-label>
+                        <input matInput placeholder="Your password..."
+                            (input)="newUserConfirmInputs($event, 'initiator')" type="password">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Confirm New User's Password</mat-label>
+                        <input matInput placeholder="New User's Password..."
+                            (input)="newUserConfirmInputs($event, 'target')" type="password">
+                    </mat-form-field>
+                    <button mat-raised-button color="warn" (click)="createNewUser()">Confirm</button>
+                </div>
+            </div>
         </mat-card-content>
         <mat-card-actions>
         </mat-card-actions>
