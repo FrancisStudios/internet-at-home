@@ -27,11 +27,24 @@ mat-card {
 #addUserAction {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center !important;
 }
 
 #addUserAction mat-form-field {
+    margin-top: 20px;
+    align-self: center !important;
+}
+
+#confirm-user-creation-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center !important;
+    background-color: rgba(0, 0, 0, 0.014);
+}
+
+#confirm-user-creation-panel mat-form-field {
     margin-top: 20px;
     align-self: center !important;
 }
