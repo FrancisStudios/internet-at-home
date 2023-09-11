@@ -26,6 +26,7 @@ export class DuegevPrivilegeManagerComponent implements OnInit, OnDestroy {
   /* SUBSCRIPTIONS */
   getAllUsersSubscription: any;
   getMyPrivilegesSubscription: any;
+  createNewUserSubscription: any;
 
   constructor(
     private identityProvider: AuthenticationService,
@@ -45,6 +46,7 @@ export class DuegevPrivilegeManagerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.getAllUsersSubscription) this.getAllUsersSubscription.unsubscribe();
     if (this.getMyPrivilegesSubscription) this.getMyPrivilegesSubscription.unsubscribe();
+    if (this.createNewUserSubscription) this.createNewUserSubscription.unsubscribe();
   }
 
   includes(ROLE: string): boolean {
@@ -84,12 +86,24 @@ export class DuegevPrivilegeManagerComponent implements OnInit, OnDestroy {
   }
 
   createNewUser() {
-    if (this.allTruncatedUsers.map((tu: { username: string; }) => tu.username).includes(this.createdNewUser.username)) {
+    if (!this.allTruncatedUsers.map((tu: { username: string; }) => tu.username).includes(this.createdNewUser.username)) {
       if (
         (this.createdNewUser.password === this.createdNewUserConfirm.newUserPassword) &&
         (this.createdNewUserConfirm.initiatorPassWord === this.localUser.password)
       ) {
-        /* TODO: Initiate saving user into db*/
+        this.createNewUserSubscription = this.identityProvider
+          .createNewAuthentication(
+            this.createdNewUser.username,
+            this.createdNewUser.password,
+            this.localUser.username,
+            this.createdNewUserConfirm.initiatorPassWord
+          )
+          .subscribe(response => {
+            if (response.queryValidation === 'valid') {
+              window.alert('User succesfully created');
+              location.reload();
+            } else window.alert('ERROR: could not create new user due to technical issues!');
+          });
       } else window.alert('Passwords does not match up!')
     } else window.alert('Username already exists!');
   }

@@ -22,6 +22,7 @@ export class DuegevPrivilegeProviderService {
 export const DuegevAccountPrivileges = [
     'sudo',         /* has access to everything */
     'recruiter',    /* has access to adding users */
+    'default',      /* read, write, like, manage new year, social */
 ]
 
 
