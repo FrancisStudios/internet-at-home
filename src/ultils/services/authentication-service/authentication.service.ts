@@ -19,6 +19,11 @@ export class AuthenticationService {
     return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/login`, payload, { headers: this.headers });
   }
 
+  createNewAuthentication(username: string, password: string, initiatorUN: string, initiatorPW: string): Observable<any> {
+    const payload = JSON.stringify({ query: 'new-user', values: { username: username, password: password, initiatorUN: initiatorUN, initiatorPW: initiatorPW } });
+    return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/login`, payload, { headers: this.headers });
+  }
+
   changeUserPreferences(user: UserData): Observable<any> {
     const payload = JSON.stringify({ query: 'change-preferences', values: { ...user } });
     return this.httpClient.post(`${WebAPIConfig.URI}:${WebAPIConfig.PORT}/login`, payload, { headers: this.headers });
