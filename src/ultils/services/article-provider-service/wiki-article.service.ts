@@ -62,11 +62,15 @@ export class WikiArticleService {
         let UID = user.uid;
         return this.getArticles({ query: 'get-by-uid', values: UID });
     }
+
+    fetchNextChunk(lastArticleId: number): Observable<any> {
+        return this.getArticles({ query: 'fetch-next-chunk', values: { last_id: lastArticleId } });
+    }
 }
 
 export type ArticleSearchQueryType = {
     query: string,
-    values?: WikiArticle | string | number | DeleteArticleValueType
+    values?: WikiArticle | string | number | DeleteArticleValueType | FetchNextValueType
 }
 
 export type DeleteArticleValueType = {
@@ -76,5 +80,8 @@ export type DeleteArticleValueType = {
         password: string,
         UID: number
     }
+}
 
+type FetchNextValueType = {
+    last_id: number
 }

@@ -27,5 +27,6 @@ export enum EnglishLanguageModel {
     MOST_LIKED = 'Most Liked',
     READ_MORE = 'read more',
     LIKES = 'Likes',
-    WORLD_MAP = 'WORLD MAP'
+    WORLD_MAP = 'WORLD MAP',
+    LOAD_MORE_ARTICLES = 'LOAD MORE ARTICLES'
 }

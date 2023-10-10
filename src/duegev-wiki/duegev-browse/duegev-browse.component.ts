@@ -145,6 +145,21 @@ export class DuegevBrowseComponent implements OnInit, OnDestroy {
     }
   }
 
+  requestNewContent() {
+    let allArticleIDs = this.articles.map((article: WikiArticle) => article._id);
+    let latestArticleID: number = Math.max(...allArticleIDs);
+    this.articleService.fetchNextChunk(latestArticleID).subscribe(nextChunkOfArticles => {
+      console.log(nextChunkOfArticles)
+      if (nextChunkOfArticles.queryValidation === 'valid') {
+        nextChunkOfArticles.articles.length && (nextChunkOfArticles.articles.length > 0)
+          ? this.articles = [...this.articles, ...nextChunkOfArticles.articles] as WikiArticle[]
+          : null;
+      }
+
+      /* TODO: az articlest frissíti, de a komponent nem frissül, és nem jelenik meg az új chunk */
+    });
+  }
+
   getString(RESOURCE_IDENTIFIER: string): string {
     return this.languageProvider.getString(RESOURCE_IDENTIFIER);
   }
