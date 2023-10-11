@@ -7,7 +7,7 @@ import { DuegevDocumentViewerComponent } from 'src/duegev-wiki/_utils/duegev-doc
 import { ArticleEditorComponent } from 'src/duegev-wiki/_utils/article-editor/article-editor.component';
 
 const routes: Routes = [
-  { path: '', component: BrowserAtHomeComponent },
+  { path: '', redirectTo: 'duegev-wiki', pathMatch: 'full' },
   { path: 'duegev-wiki', component: DuegevHomeComponent },
   { path: 'utils/identity-provider', component: IdentityProviderComponent },
   { path: 'utils/identity-provider/:from', component: IdentityProviderComponent },
@@ -20,4 +20,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
