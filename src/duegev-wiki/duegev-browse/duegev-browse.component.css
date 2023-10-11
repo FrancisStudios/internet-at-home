@@ -72,3 +72,11 @@ a {
     margin-left: 40px;
     text-transform: uppercase;
 }
+
+.more-content {
+    text-align: center;
+}
+
+.more-content-disabled {
+    filter: grayscale(1);
+}

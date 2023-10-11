@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
@@ -35,7 +35,8 @@ export class DuegevBrowseComponent implements OnInit, OnDestroy {
     private dialogProvider: MatDialog,
     private likeService: DuegevArticleLikeService,
     private duegevSearchEngine: DuegevSearchEngine,
-    private languageProvider: InternetAtHomeLanguageService) { }
+    private languageProvider: InternetAtHomeLanguageService,
+    private changeDetectorReference: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.articleServiceGetArticlesSubscription = this.articleService.getArticles(this.searchquery).subscribe(response => {
@@ -143,6 +144,20 @@ export class DuegevBrowseComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  requestNewContent() {
+    let allArticleIDs = this.articles.map((article: WikiArticle) => article._id);
+    let latestArticleID: number = Math.max(...allArticleIDs);
+    this.articleService.fetchNextChunk(latestArticleID).subscribe(nextChunkOfArticles => {
+      console.log(nextChunkOfArticles)
+      if (nextChunkOfArticles.queryValidation === 'valid') {
+        nextChunkOfArticles.articles.length && (nextChunkOfArticles.articles.length > 0)
+          ? this.articles = [...this.articles, ...nextChunkOfArticles.articles] as WikiArticle[]
+          : null;
+      }
+      this.changeDetectorReference.detectChanges();
+    });
   }
 
   getString(RESOURCE_IDENTIFIER: string): string {

@@ -1,8 +1,10 @@
 <mat-card id="articles-browser">
     <mat-card-header id="article-search-header">
         <div class="input-holder">
-            <input type="text" placeholder="{{getString('SEARCH_IN_ALL_ARTICLES')}}..." (keydown.enter)="search()" id="articles-search-bar">
-            <mat-card-subtitle id="results-shower">{{getString('SHOWING')}} {{numberOfSearchResults}} {{getString('RESULTS')}}...</mat-card-subtitle>
+            <input type="text" placeholder="{{getString('SEARCH_IN_ALL_ARTICLES')}}..." (keydown.enter)="search()"
+                id="articles-search-bar">
+            <mat-card-subtitle id="results-shower">{{getString('SHOWING')}} {{numberOfSearchResults}}
+                {{getString('RESULTS')}}...</mat-card-subtitle>
         </div>
         <button mat-raised-button color="primary" id="search-button" (click)="search()">{{getString('SEARCH')}}</button>
     </mat-card-header>
@@ -14,13 +16,16 @@
         <mat-card *ngFor="let article of articles" class="article-card">
             <mat-card-header>
                 <mat-card-title>{{article.title}}</mat-card-title>
-                <mat-card-subtitle><span class="game-time-display">{{getTimeByCT(article.date)}}</span></mat-card-subtitle>
+                <mat-card-subtitle><span
+                        class="game-time-display">{{getTimeByCT(article.date)}}</span></mat-card-subtitle>
                 <mat-card-subtitle>@{{ getNicknameByUID(article.author) }}</mat-card-subtitle>
                 <mat-card-subtitle>{{article.irl_date}}</mat-card-subtitle>
             </mat-card-header>
             <div class="article-chipbox-wrapper">
-                <custom-chip-list [listName]="'Categories'" [chips]="mapLabelsToChips(article.categories, 'primary')"></custom-chip-list>
-                <custom-chip-list [listName]="'Labels'" [chips]="mapLabelsToChips(article.labels, 'dark')"></custom-chip-list>
+                <custom-chip-list [listName]="'Categories'"
+                    [chips]="mapLabelsToChips(article.categories, 'primary')"></custom-chip-list>
+                <custom-chip-list [listName]="'Labels'"
+                    [chips]="mapLabelsToChips(article.labels, 'dark')"></custom-chip-list>
             </div>
             <mat-card-content>
                 <div class="md-viewer-wrapper">
@@ -28,13 +33,24 @@
                 </div>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-raised-button color="primary" matBadge="{{getNumberOfLikes(article.likes)}}" matBadgePosition="before" matBadgeColor="accent" (click)="like(article.article_id, article.likes)">
+                <button mat-raised-button color="primary" matBadge="{{getNumberOfLikes(article.likes)}}"
+                    matBadgePosition="before" matBadgeColor="accent" (click)="like(article.article_id, article.likes)">
                     {{getString('LIKE')}}
                 </button>
-                <a mat-raised-button (click)="copyPermalinkToClipboard(article.article_id)">{{getString('PERMALINK')}}</a>
+                <a mat-raised-button
+                    (click)="copyPermalinkToClipboard(article.article_id)">{{getString('PERMALINK')}}</a>
             </mat-card-actions>
         </mat-card>
         <!-- /ARTICLE -->
 
+        <!-- LOAD MORE PANEL -->
+        <div id="load-more-panel">
+            <mat-card>
+                <mat-card-content class="more-content">
+                    <button mat-button color="primary" class="more-articles-button" (click)="requestNewContent()">{{getString('LOAD_MORE_ARTICLES')}}</button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <!-- / LOAD MORE PANEL -->
     </mat-card-content>
 </mat-card>

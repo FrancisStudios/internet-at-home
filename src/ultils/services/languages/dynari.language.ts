@@ -27,5 +27,6 @@ export enum DynariLanguageModel {
     MOST_LIKED = 'Lykkerne',
     READ_MORE = 'Lésønd már',
     LIKES = 'Jag lykkt',
-    WORLD_MAP = 'vølt kaartogræf'
+    WORLD_MAP = 'vølt kaartogræf',
+    LOAD_MORE_ARTICLES = 'LÁAR MÁR BÓKLETTERS'
 }
