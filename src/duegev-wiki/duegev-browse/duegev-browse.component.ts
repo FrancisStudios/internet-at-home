@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SessionStorageItems } from 'src/data-types/authentication/session-storage-items';
@@ -35,7 +35,8 @@ export class DuegevBrowseComponent implements OnInit, OnDestroy {
     private dialogProvider: MatDialog,
     private likeService: DuegevArticleLikeService,
     private duegevSearchEngine: DuegevSearchEngine,
-    private languageProvider: InternetAtHomeLanguageService) { }
+    private languageProvider: InternetAtHomeLanguageService,
+    private changeDetectorReference: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.articleServiceGetArticlesSubscription = this.articleService.getArticles(this.searchquery).subscribe(response => {
@@ -155,8 +156,7 @@ export class DuegevBrowseComponent implements OnInit, OnDestroy {
           ? this.articles = [...this.articles, ...nextChunkOfArticles.articles] as WikiArticle[]
           : null;
       }
-
-      /* TODO: az articlest frissíti, de a komponent nem frissül, és nem jelenik meg az új chunk */
+      this.changeDetectorReference.detectChanges();
     });
   }
 
