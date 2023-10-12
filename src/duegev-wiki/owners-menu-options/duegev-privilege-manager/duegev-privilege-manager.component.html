@@ -72,14 +72,38 @@
     </mat-card>
 
 
-    <mat-card>
+    <mat-card *ngIf="includes('cartographer')">
         <mat-card-header>
-            <mat-card-title>Actions Buttons</mat-card-title>
-            <mat-card-subtitle>Start</mat-card-subtitle>
+            <mat-card-title>Map manager</mat-card-title>
+            <mat-card-subtitle>Upload and manage maps</mat-card-subtitle>
         </mat-card-header>
+        <mat-card-content>
+            <div id="map-data-field">
+                <div>
+                    <span>Latest upload: </span>
+                    <span>2023.10.12</span>
+                </div>
+                <div>
+                    <span>Game time: </span>
+                    <span>2446</span>
+                </div>
+            </div>
+            <div id="map-modifier">
+                <img src="../../../assets/duegev/map/duegev-latest" id="duegev-latest-map">
+                <mat-card id="map-data-card">
+                    <mat-card-title>Upload new</mat-card-title>
+                    <mat-card-content id="map-uploader">
+                        <input type="file">
+                        <mat-form-field class="map-commentaire">
+                            <mat-label>Describe map...</mat-label>
+                            <textarea matInput placeholder="What is changed?" style="resize: none;"></textarea>
+                        </mat-form-field>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-card-content>
         <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
+            <button mat-button>UPDATE</button>
         </mat-card-actions>
     </mat-card>
 
