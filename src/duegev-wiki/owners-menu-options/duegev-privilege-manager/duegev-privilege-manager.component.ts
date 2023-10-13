@@ -3,6 +3,7 @@ import { SessionStorageItems } from 'src/data-types/authentication/session-stora
 import { UserData } from 'src/data-types/authentication/user-data';
 import { AuthenticationService } from 'src/ultils/services/authentication-service/authentication.service';
 import { DuegevAccountPrivileges, DuegevPrivilegeProviderService } from 'src/ultils/services/authentication-service/privileges-provider.service';
+import config from 'src/duegev-config';
 
 @Component({
   selector: 'duegev-privilege-manager',
@@ -110,6 +111,26 @@ export class DuegevPrivilegeManagerComponent implements OnInit, OnDestroy {
 
   askForConfirmationPanel() {
     this.isConfirmUserCreation = true;
+  }
+
+  updateMapData(): void {
+    /* TODO GET MAP DATA AND ENABLE MAP UPDATE CONFIRMATION PANEL */
+    const fileUploader: any = (<HTMLInputElement>document.getElementById('map-file-upload')) || { files: [{ name: '%notnull%' }] };
+    const fileName = (fileUploader?.files[0]?.name ? fileUploader.files[0].name : '%notnull%');
+    const validFileFormats = config.supportedMapFileFormats;
+    const fileConditions: boolean = (
+      fileName &&
+      fileName !== '%notnull%' &&
+      fileName.length > 1 &&
+      (validFileFormats.includes(fileName.split('.')[fileName.split('.').length - 1]))
+    );
+
+    if (fileConditions) {
+      console.log('good file');
+    } else {
+      if (!validFileFormats.includes(fileName.split('.')[fileName.split('.').length - 1]))
+        window.alert(`${fileName.split('.')[fileName.split('.').length - 1]} format is not supported`);
+    }
   }
 }
 

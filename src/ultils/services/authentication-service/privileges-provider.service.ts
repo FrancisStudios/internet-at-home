@@ -14,7 +14,9 @@ export class DuegevPrivilegeProviderService {
         create endpoint where loggedInUser logs in and endpoint returns the 
         correct privileges -> this FN should return an Observable
         */
-        let response = new BehaviorSubject<string[]>(['sudo', 'cartographer']);
+
+
+        let response = new BehaviorSubject<string[]>(['recruiter', 'cartographer']);
         return response;
     }
 }
