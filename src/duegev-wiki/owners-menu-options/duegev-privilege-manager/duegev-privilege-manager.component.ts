@@ -117,6 +117,7 @@ export class DuegevPrivilegeManagerComponent implements OnInit, OnDestroy {
     /* TODO GET MAP DATA AND ENABLE MAP UPDATE CONFIRMATION PANEL */
     const fileUploader: any = (<HTMLInputElement>document.getElementById('map-file-upload')) || { files: [{ name: '%notnull%' }] };
     const fileName = (fileUploader?.files[0]?.name ? fileUploader.files[0].name : '%notnull%');
+    const file = (fileUploader?.files[0]);
     const validFileFormats = config.supportedMapFileFormats;
     const fileConditions: boolean = (
       fileName &&
@@ -126,7 +127,22 @@ export class DuegevPrivilegeManagerComponent implements OnInit, OnDestroy {
     );
 
     if (fileConditions) {
-      console.log('good file');
+      /* SAVE FILE TO LOCAL DIR */
+      const __fileReferecne = new File([file], 'duegev-map', { type: file.type });
+      const __fileReader = new FileReader();
+
+      __fileReader.readAsDataURL(__fileReferecne);
+      __fileReader.addEventListener('load', () => {
+        const __result = __fileReader.result?.toString() || '';
+        const regex = /^data:.+\/(.+);base64,(.*)$/;
+
+        let matches: any = __result.match(regex);
+        let extension = matches[1];
+        let data = matches[2];
+
+        //fse.writeFileSync('data.' + extension, data);
+      });
+
     } else {
       if (!validFileFormats.includes(fileName.split('.')[fileName.split('.').length - 1]))
         window.alert(`${fileName.split('.')[fileName.split('.').length - 1]} format is not supported`);
